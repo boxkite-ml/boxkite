@@ -1,3 +1,5 @@
+## User Guide
+
 [Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. `bdrk` is the official client library for interacting with APIs on Bedrock platform.
 
 #### Logging feature and inference distribution
@@ -85,3 +87,12 @@ def get_metrics():
 ```
 
 When deployed in your workload cluster, the `/metrics` endpoint is automatically scraped by Prometheus every minute to store the latest metrics as timeseries data.
+
+## Contributors
+
+The following people have contributed to the original concept and code
+
+- [Han Qiao](https://github.com/sweatybridge)
+- [Nguyen Hien Linh](https://github.com/nglinh)
+
+A full list of contributors, which includes individuals that have contributed entries, can be found [here](https://github.com/basisai/model-monitoring/graphs/contributors).
