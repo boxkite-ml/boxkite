@@ -104,6 +104,6 @@ A full list of contributors, which includes individuals that have contributed en
 
 ## Shameless plug
 
-Boxkite is a project from Basis-AI, who offer a platform called Bedrock.
+Boxkite is a project from Basis-AI, who offer an MLOps Platform called Bedrock.
 
-[Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. `bdrk` is the official client library for interacting with APIs on Bedrock platform.
+[Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. Boxkite was originally part of the Bedrock client library, but we've spun it out into an open source project so that it's useful for everyone!
