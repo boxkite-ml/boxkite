@@ -2,7 +2,9 @@
 
 ### User Guide
 
-[Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. `bdrk` is the official client library for interacting with APIs on Bedrock platform.
+Boxkite allows easy monitoring of model performance in production systems by capturing the model training distribution and comparing it against realtime production distributions via Prometheus.
+
+Boxkite also includes PromQL queries to calculate divergence metrics, such as [KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) to give you a measure of _how different_ your production traffic is from your training data. This allows you to capture model drift.
 
 #### Logging feature and inference distribution
 
@@ -99,3 +101,9 @@ The following people have contributed to the original concept and code
 - [Luke Marsden](https://github.com/lukemarsden)
 
 A full list of contributors, which includes individuals that have contributed entries, can be found [here](https://github.com/basisai/model-monitoring/graphs/contributors).
+
+## Shameless plug
+
+Boxkite is a project from Basis-AI, who offer a platform called Bedrock.
+
+[Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. `bdrk` is the official client library for interacting with APIs on Bedrock platform.
