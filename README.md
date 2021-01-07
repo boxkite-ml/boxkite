@@ -1,4 +1,6 @@
-## User Guide
+## boxkite: easily compare training and production ML model distributions
+
+### User Guide
 
 [Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. `bdrk` is the official client library for interacting with APIs on Bedrock platform.
 
