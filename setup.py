@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="boxkite-lukemarsden",
-    version="0.0.2",
+    name="boxkite",
+    version="0.0.1",
     author="Luke Marsden",
     author_email="me@lukemarsden.net",
     description="A small example package",
