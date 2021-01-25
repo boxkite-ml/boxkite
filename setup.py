@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="boxkite-lukemarsden",
-    version="0.0.1",
+    version="0.0.2",
     author="Luke Marsden",
     author_email="me@lukemarsden.net",
     description="A small example package",
@@ -15,7 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "OSI Approved :: Apache Software License",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
