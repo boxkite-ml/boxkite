@@ -1,2 +1,2 @@
 scikit-learn==0.23.1
-bdrk[model-monitoring]==0.6.0
+boxkite==0.0.1

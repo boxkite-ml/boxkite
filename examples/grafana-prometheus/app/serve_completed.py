@@ -1,7 +1,7 @@
 import pickle
 
-from bedrock_client.bedrock.metrics.service import ModelMonitoringService
-from bedrock_client.bedrock.metrics.collector import BaselineMetricCollector
+from boxkite.monitoring.service import ModelMonitoringService
+from boxkite.monitoring.collector import BaselineMetricCollector
 from flask import Flask, request
 
 with open("./model.pkl", "rb") as f:

@@ -3,7 +3,7 @@ import pickle
 from sklearn.datasets import load_diabetes
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from bedrock_client.bedrock.metrics.service import ModelMonitoringService
+from boxkite.monitoring.service import ModelMonitoringService
 
 
 def main():

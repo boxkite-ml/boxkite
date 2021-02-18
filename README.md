@@ -12,7 +12,7 @@ You may use the model monitoring service to save the distribution of input and m
 
 ```python
 import pandas as pd
-from bedrock_client.bedrock.metrics.service import ModelMonitoringService
+from boxkite.monitoring.service import ModelMonitoringService
 from sklearn.svm import SVC
 
 
@@ -37,7 +37,7 @@ At serving time, users may import `bdrk[model-monitoring]` library to track vari
 The model monitoring service may be instantiated in serve.py to log every prediction request for offline analysis. The following example demonstrates how to enable prediction logging in a typical Flask app.
 
 ```python
-from bedrock_client.bedrock.metrics.service import ModelMonitoringService
+from boxkite.monitoring.service import ModelMonitoringService
 from flask import Flask, request
 from sklearn.svm import SVC
 
