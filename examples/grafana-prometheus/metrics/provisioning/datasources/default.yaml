@@ -1,0 +1,17 @@
+# config file version
+apiVersion: 1
+
+# list of datasources to insert/update depending on what's in the database
+datasources:
+  # <string, required> name of the datasource. Required
+  - name: Prometheus
+    # <string, required> datasource type. Required
+    type: prometheus
+    # <string, required> access mode. direct or proxy. Required
+    access: direct
+    # <string> url
+    url: http://localhost:9090
+    # <bool> mark as default datasource. Max one per org
+    isDefault: true
+    # <bool> allow users to edit datasources from the UI.
+    editable: false
