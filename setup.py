@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="boxkite",
-    version="0.0.1",
+    version="0.0.2",
     author="Luke Marsden",
     author_email="me@lukemarsden.net",
     description="A small example package",
