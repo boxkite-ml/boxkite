@@ -19,4 +19,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    # TODO: can we relax these requirements at all?
+    install_requires=[
+        "fluent-logger==0.9.6",
+        "prometheus_client==0.9",
+        "numpy==1.19.4",
+    ],
 )
