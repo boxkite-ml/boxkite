@@ -1,0 +1,72 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: ${namespace}
+  name: ${namespace}-control-plane
+spec:
+  values:
+    global:
+      proxy:
+        autoInject: disabled
+      useMCP: false
+      # The third-party-jwt is not enabled on all k8s.
+      # See: https://istio.io/docs/ops/best-practices/security/#configure-third-party-service-account-tokens
+      jwtPolicy: first-party-jwt
+  profile: default
+  addonComponents:
+    pilot:
+      enabled: true
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+    prometheus:
+      enabled: true
+    tracing:
+      enabled: true
+  components:
+    ingressGateways:
+    - name: istio-${ingress_gateway_selector}
+      enabled: true
+      k8s:
+        serviceAnnotations:
+%{ for key,value in annotations ~}
+          ${key}: ${value}
+%{ endfor ~}
+%{ if lb_ip != "" }
+        service:
+          type: LoadBalancer
+          loadBalancerIP: ${lb_ip}
+          externalTrafficPolicy: Local
+          ports:
+          - name: status-port
+            port: 15020
+            targetPort: 15020
+          - name: http2
+            port: 80
+            targetPort: 8080
+          - name: https
+            port: 443
+            targetPort: 8443
+          - name: tls
+            port: 15443
+            targetPort: 15443
+%{ endif ~}
+    - name: cluster-local-gateway
+      enabled: true
+      label:
+        istio: cluster-local-gateway
+        app: cluster-local-gateway
+      k8s:
+        service:
+          type: ClusterIP
+          ports:
+          - port: 15020
+            name: status-port
+            targetPort: 15021
+          - port: 80
+            name: http2
+            targetPort: 8081
+          - port: 443
+            name: https
+            targetPort: 8444

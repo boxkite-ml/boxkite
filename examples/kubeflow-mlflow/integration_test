@@ -1,0 +1,19 @@
+#!/bin/bash
+set -xeuo pipefail
+
+testctl get
+export KUBECONFIG=$(pwd)/kubeconfig
+./testctl-rsync.sh main.tf /root
+./testctl-rsync.sh conf /root/
+./testctl-rsync.sh terraform-module-kubeflow /root/
+./testctl-rsync.sh regcreds.sh /root/
+
+# workaround docker hub ratelimits
+# you get a regcred, you get a regcred!
+# TODO: move this into terraform so it's not so hacky!
+# runs in the background continuously trying to apply namespaces while things
+# start up...
+./testctl-ssh.sh -- bash regcreds.sh &
+
+./testctl-ssh.sh -- terraform init
+./testctl-ssh.sh -- terraform apply -auto-approve

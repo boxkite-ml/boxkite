@@ -1,0 +1,46 @@
+name: 'publish'
+on:
+  push:
+    branches:
+      - master
+      - tf012
+jobs:
+  publish:
+    name: 'Publish'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - run: |
+          if [[ "$GITHUB_REF" == "refs/heads/master" ]]; then
+            echo "::set-output name=version::v0.13*"
+          else
+            echo "::set-output name=version::v0.12*"
+          fi
+        id: get_tf_version
+      - name: Find Tag
+        id: get_latest_tag
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: ${{ steps.get_tf_version.outputs.version }}
+          exclude: '*-rc*'
+          commit-ish: 'HEAD~'
+      - run: echo "::set-output name=version::$(echo ${{ steps.get_latest_tag.outputs.tag }} | cut -d- -f2)"
+        id: get_version
+      - name: 'Get next version'
+        id: next_tag
+        uses: "WyriHaximus/github-action-next-semvers@master"
+        with:
+          version: ${{ steps.get_version.outputs.version }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "${{ steps.next_tag.outputs.v_patch }}"
+          release_name: "${{ steps.next_tag.outputs.v_patch }}"
+          body: |
+            Automatic release for ${{ steps.next_tag.outputs.v_patch }}
+          draft: false
+          prerelease: false

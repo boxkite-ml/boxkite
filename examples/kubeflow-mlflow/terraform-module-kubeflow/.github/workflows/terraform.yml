@@ -1,0 +1,94 @@
+name: "tests"
+on:
+  pull_request:
+    branches:
+      - master
+      - tf012
+  push:
+    branches:
+      - master
+      - tf012
+env:
+  tests_timeout: "2h"
+  golangci_lint_version: "v1.26"
+jobs:
+  validate:
+    name: "Validate"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.0
+        if: github.ref == 'refs/heads/tf012'
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.29
+        if: github.ref == 'refs/heads/tf012'
+
+      - name: "Download terraform k8s provider"
+        run: |
+          wget https://github.com/banzaicloud/terraform-provider-k8s/releases/download/v0.7.7/terraform-provider-k8s_0.7.7_linux_amd64.tar.gz
+          tar xvzf terraform-provider-k8s_0.7.7_linux_amd64.tar.gz && chmod +x terraform-provider-k8s
+          mkdir -p ~/.terraform.d/plugins
+          mv terraform-provider-k8s ~/.terraform.d/plugins
+        if: github.ref == 'refs/heads/tf012'
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: tflint
+        run: docker run --rm -v $(pwd):/data -t wata727/tflint
+  test:
+    name: "Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@master
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.0
+        if: github.ref != 'refs/heads/tf012'
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.12.29
+        if: github.ref == 'refs/heads/tf012'
+
+      - name: "Download terraform k8s provider"
+        run: |
+          wget https://github.com/banzaicloud/terraform-provider-k8s/releases/download/v0.7.7/terraform-provider-k8s_0.7.7_linux_amd64.tar.gz
+          tar xvzf terraform-provider-k8s_0.7.7_linux_amd64.tar.gz && chmod +x terraform-provider-k8s
+          mkdir -p ~/.terraform.d/plugins
+          mv terraform-provider-k8s ~/.terraform.d/plugins
+        if: github.ref == 'refs/heads/tf012'
+
+      - name: "go vet"
+        run: go vet ./...
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v1
+        with:
+          # Optional: golangci-lint command line arguments.
+          args: --timeout=3m0s
+          version: ${{ env.golangci_lint_version }}
+
+      - name: "go test"
+        env:
+          K3S_KUBECONFIG_MODE: 644
+          KUBECONFIG: "/etc/rancher/k3s/k3s.yaml"
+        run: |
+          curl -sfL https://get.k3s.io | sh -s - --disable traefik --disable servicelb
+          kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+          curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+          go test -v -timeout ${{ env.tests_timeout }} ./...

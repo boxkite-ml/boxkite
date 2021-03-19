@@ -1,0 +1,98 @@
+%{ if use_cert_manager ~}
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: kubeflow
+  namespace: ${istio_namespace}
+spec:
+  secretName: kubeflow-cert
+  commonName: ${dns_record}.${domain_name}
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - ${dns_record}.${domain_name}
+%{ endif }
+%{ if credential_name != "" || use_cert_manager }
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kubeflow-gateway
+  namespace: ${namespace}
+spec:
+  selector:
+    istio: ${ingress_gateway_selector}
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: %{ if use_cert_manager ~}kubeflow-cert%{ else ~}${credential_name}%{ endif }
+    hosts:
+      - ${dns_record}.${domain_name}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: ${namespace}
+spec:
+  gateways:
+  - kubeflow-gateway
+  hosts:
+  - "*"
+  #- ${dns_record}.${domain_name}
+  http:
+  - match:
+    - uri:
+        prefix: /kiali/
+    rewrite:
+      uri: /kiali/
+    route:
+    - destination:
+        host: kiali.${istio_namespace}.svc.cluster.local
+        port:
+          number: 20001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: ${namespace}
+spec:
+  gateways:
+  - kubeflow-gateway
+  hosts:
+  - "*"
+  #- ${dns_record}.${domain_name}
+  http:
+  - match:
+    - method:
+        exact: GET
+      uri:
+        prefix: /grafana/
+    rewrite:
+      uri: /grafana/
+    route:
+    - destination:
+        host: grafana.${istio_namespace}.svc.cluster.local
+        port:
+          number: 3000
+%{ endif }
+---
+apiVersion: rbac.istio.io/v1alpha1
+kind: ClusterRbacConfig
+metadata:
+  name: default
+  namespace: kubeflow
+spec:
+  mode: "OFF"

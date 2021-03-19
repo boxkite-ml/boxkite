@@ -1,0 +1,91 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  labels:
+%{ for key,value in labels ~}
+    ${key}: ${value}
+%{ endfor ~}
+  name: oidc-authservice
+  namespace: ${istio_namespace}
+spec:
+  addOwnerRef: true
+  componentKinds:
+  - group: apps
+    kind: StatefulSet
+  - group: core
+    kind: Service
+  - group: core
+    kind: PersistentVolumeClaim
+  - group: networking.istio.io
+    kind: EnvoyFilter
+  descriptor:
+    description: Provides OIDC-based authentication for Kubeflow Applications, at
+      the Istio Gateway.
+    keywords:
+    - oidc
+    - authservice
+    - authentication
+    links:
+    - description: About
+      url: https://github.com/kubeflow/kubeflow/tree/master/components/oidc-authservice
+    - description: Docs
+      url: https://www.kubeflow.org/docs/started/k8s/kfctl-existing-arrikto
+    maintainers:
+    - email: yanniszark@arrikto.com
+      name: Yannis Zarkadas
+    owners:
+    - email: yanniszark@arrikto.com
+      name: Yannis Zarkadas
+    type: oidc-authservice
+    version: v1beta1
+  selector:
+    matchLabels:
+%{ for key,value in labels ~}
+      ${key}: ${value}
+%{ endfor ~}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  labels:
+%{ for key,value in labels ~}
+    ${key}: ${value}
+%{ endfor ~}
+  name: authn-filter
+  namespace: ${istio_namespace}
+spec:
+  workloadSelector:
+    labels:
+      istio: ingressgateway
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        filterChain:
+          filter:
+            name: "envoy.http_connection_manager"
+            subFilter:
+              name: "envoy.router"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.ext_authz
+        config:
+          http_service:
+            server_uri:
+              uri: http://authservice.${istio_namespace}.svc.cluster.local
+              cluster: outbound|8080||authservice.${istio_namespace}.svc.cluster.local
+              failure_mode_allow: false
+              timeout: 10s
+            authorization_request:
+              allowed_headers:
+                patterns:
+                - exact: "cookie"
+                - exact: "X-Auth-Token"
+            authorization_response:
+              allowed_upstream_headers:
+                patterns:
+                - exact: "kubeflow-userid"
+          status_on_error:
+            code: GatewayTimeout

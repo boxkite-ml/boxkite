@@ -1,0 +1,45 @@
+name: Myproject
+base:
+  kernel_image: quay.io/testfaster/ignite-kernel
+  os_dockerfile: |-
+    # This dockerfile defines the base disk image for your VMs
+    FROM quay.io/testfaster/kube-ubuntu
+    RUN touch /root/hello-world.txt
+    RUN apt update
+    RUN apt install gnupg2 software-properties-common rsync -y
+    RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+    RUN apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    RUN apt install terraform -y
+  docker_bake_script: |-
+    # Do things that cache docker images for faster builds,
+    # like building a prior version of your software.
+    # Docker buildkit cache is preserved!
+    #!/bin/bash
+    set -euo pipefail
+    docker pull busybox:1.32.0
+  preload_docker_images:
+    # You can also pull docker images like this. Always use
+    # immutable tags for reproducibility!
+    - nginx:1.19.5
+  prewarm_script: |-
+    # This gets run after each individual VM starts up, so
+    # start services you need in your tests here and they'll be
+    # already running when you testctl get
+    #!/bin/bash
+    set -euo pipefail
+    docker run -d nginx:1.19.5
+  # Need kube 1.17 for kubeflow last time I checked (1.18 doesn't work).
+  # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220
+  kubernetes_version: v1.17.11
+runtime:
+  cpus: 4
+  memory: 12GB
+  disk: 50GB
+# How many ready VMs to keep running for instant testctl get
+prewarm_pool_size: 1
+# Upper bound for pool size, e.g. to keep memory usage sensible
+max_pool_size: 2
+# Timeout VMs after this long. Set to "" if you want to use
+# the VMs for long running development purposes rather than
+# short-lived CI.
+default_lease_timeout: ""
