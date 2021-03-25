@@ -30,7 +30,7 @@ ModelMonitoringService.export_text(
 
 ### Monitoring models in production
 
-At serving time, users may import `bdrk[model-monitoring]` library to track various model performance metrics. Anomalies in these metrics can help inform users about model rot.
+At serving time, users may import `boxkite` library to track various model performance metrics. Anomalies in these metrics can help inform users about model rot.
 
 #### Logging predictions
 
