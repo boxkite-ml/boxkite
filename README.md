@@ -1,4 +1,6 @@
-## boxkite: easily compare training and production ML model distributions
+![Boxkite logo](images/boxkite-text.png){: style="width:300px" }
+
+## Easily compare training and production ML data & model distributions
 
 ### User Guide
 
@@ -106,4 +108,4 @@ A full list of contributors, which includes individuals that have contributed en
 
 Boxkite is a project from Basis-AI, who offer an MLOps Platform called Bedrock.
 
-[Bedrock](https://bedrock.basis-ai.com) helps data scientists own the end-to-end deployment of machine learning workflows. Boxkite was originally part of the Bedrock client library, but we've spun it out into an open source project so that it's useful for everyone!
+[Bedrock](https://basis-ai.com/product) helps data scientists own the end-to-end deployment of machine learning workflows. Boxkite was originally part of the Bedrock client library, but we've spun it out into an open source project so that it's useful for everyone!
