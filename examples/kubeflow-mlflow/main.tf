@@ -72,7 +72,7 @@ module "mlflow" {
   }
 
   values = [
-    "${file("conf/mlflow_values.yaml")}"
+    file("conf/mlflow_values.yaml")
   ]
 
   set = [
