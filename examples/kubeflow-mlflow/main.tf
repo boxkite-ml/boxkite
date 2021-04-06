@@ -99,7 +99,7 @@ module "minio" {
   }
 
   values = [
-    "${file("conf/minio_values.yaml")}"
+    file("conf/minio_values.yaml")
   ]
 
   set = [
@@ -135,7 +135,7 @@ module "mysql" {
   }
 
   values = [
-    "${file("conf/mysql_values.yaml")}"
+    file("conf/mysql_values.yaml")
   ]
 
 }
