@@ -30,7 +30,7 @@ provider "helm" {
 
 resource "kubernetes_namespace" "ns" {
   metadata {
-    name = "kf"
+    name = "mlflow"
   }
 }
 
