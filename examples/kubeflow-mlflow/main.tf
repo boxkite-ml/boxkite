@@ -140,7 +140,17 @@ module "mysql" {
 
 }
 
-resource "kubernetes_service" "mlflow-external" {
+resource "kubernetes_secret" "mysql_password" {
+  metadata {
+    name      = "mlflow-mysql"
+    namespace = kubernetes_namespace.ns.metadata.0.name
+  }
+  data = {
+    password = "mysql123"
+  }
+}
+
+resource "kubernetes_service" "mlflow_external" {
   metadata {
     name      = "mlflow-external"
     namespace = kubernetes_namespace.ns.metadata.0.name
@@ -159,7 +169,7 @@ resource "kubernetes_service" "mlflow-external" {
   }
 }
 
-resource "kubernetes_service" "minio-external" {
+resource "kubernetes_service" "minio_external" {
   metadata {
     name      = "minio-external"
     namespace = kubernetes_namespace.ns.metadata.0.name
@@ -178,7 +188,7 @@ resource "kubernetes_service" "minio-external" {
   }
 }
 
-resource "kubernetes_service" "istio-external" {
+resource "kubernetes_service" "istio_external" {
   metadata {
     name      = "istio-external"
     namespace = "istio-system"
