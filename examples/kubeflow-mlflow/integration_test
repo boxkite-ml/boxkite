@@ -5,6 +5,7 @@ testctl get
 export KUBECONFIG=$(pwd)/kubeconfig
 ./testctl-rsync.sh main.tf /root
 ./testctl-rsync.sh conf /root/
+./testctl-rsync.sh helm-mlflow /root/
 ./testctl-rsync.sh terraform-module-kubeflow /root/
 ./testctl-rsync.sh regcreds.sh /root/
 
