@@ -13,6 +13,7 @@ done
 # runs in the background continuously trying to apply namespaces while things
 # start up...
 ./testctl-ssh.sh -- bash regcreds.sh &
+PID=$!; trap "kill $PID" EXIT
 
 ./testctl-ssh.sh -- terraform init
 ./testctl-ssh.sh -- terraform apply -auto-approve
