@@ -13,8 +13,8 @@ backendStore:
   #   database:
 
   mysql:
-     username: mlflow
-     password: mlflow123
+     username: root
+     password: mysql123 
      host: mysql.mlflow.svc.cluster.local
      port: 3306
      database: mlflow
