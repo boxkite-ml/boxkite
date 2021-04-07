@@ -58,7 +58,7 @@ module "kubeflow" {
 
 module "mlflow" {
   source  = "terraform-module/release/helm"
-  repository = "https://larribas.me/helm-charts"
+  repository = "./helm-mlflow"
   namespace  = kubernetes_namespace.ns.metadata.0.name
 
   app = {
