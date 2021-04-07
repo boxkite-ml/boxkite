@@ -68,14 +68,14 @@ auth:
   ## MySQL root password
   ## ref: https://github.com/bitnami/bitnami-docker-mysql#setting-the-root-password-on-first-run
   ##
-  rootPassword: ""
+  rootPassword: "mysql123"
   ## MySQL custom user and database
   ## ref: https://github.com/bitnami/bitnami-docker-mysql/blob/master/README.md#creating-a-database-on-first-run
   ## ref: https://github.com/bitnami/bitnami-docker-mysql/blob/master/README.md#creating-a-database-user-on-first-run
   ##
   database: my_database
-  username: ""
-  password: ""
+  username: "mlflow"
+  password: "mlflow123"
   ## MySQL replication user and password
   ## ref: https://github.com/bitnami/bitnami-docker-mysql#setting-up-a-replication-cluster
   ##

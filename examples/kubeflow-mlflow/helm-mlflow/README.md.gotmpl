@@ -1,0 +1,82 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.versionLine" . }}
+
+---
+
+## Install Chart
+
+To install the MLFlow chart in your Kubernetes cluster, add the `larribas` repository (see main [README](../README.md)), and then run:
+
+```bash
+helm install --namespace mlflow --name mlflow larribas/mlflow
+```
+
+
+After the installation succeeds, you can get the Chart's status via:
+
+```bash
+helm status mlflow
+```
+
+
+You can delete the Chart anytime via:
+
+```bash
+helm delete --purge mlflow
+```
+
+
+## Known limitations of this Chart
+
+I've created this Chart to use it in a production-ready environment in my company. We are using MLFlow with a Postgres backend store.
+
+Therefore, the following capabilities have been left out of the Chart:
+
+- Using persistent volumes as a backend store.
+- Using other database engines like MySQL or SQLServer.
+
+__I would happily accept contributions to this Chart__
+
+
+## Local vs. Remote backend stores
+
+By default, MLFlow will store data and artifacts in the local filesystem. If you're deploying a production-ready MLFlow cluster, I would recommend you to point your backend store to a remote database.
+
+At the moment, the only database engine supported by this Chart is Postgres. This means you can add the following values:
+
+```yaml
+backendStore:
+  postgres:
+    username: my_user
+    password: my_password
+    host: my_host
+    port: 5342
+    database: my_db
+```
+
+And (provided the right network and security setup) the Chart will work seamlessly with that database.
+
+Supporting other database engine is not in my plans, but if you're planning to fork this repository and/or contribute to it, this is what you would need to do in order to add support to another DB engine:
+
+* Fork the [repository](https://github.com/larribas/docker-production-mlflow) where the docker image is defined and install the system and python libraries that MLFlow would require to connect to the database.
+* Publish a new docker image with the right dependencies installed.
+* Fork this repository and modify the
+  - [values.yaml](values.yaml) - add configuration for the new engine
+  - [secret.yaml](templates/secret.yaml) - add a new secret for your engine 
+  - [deployment.yaml](templates/deployment.yaml) - inject the right secret and pass the right argument to the container
+
+
+## Service Accounts / RBAC
+
+By default, this Chart creates a new ServiceAccount and runs the deployment under it. You can disable this behavior setting `serviceAccount.create = false`.
+
+
+## Ingress controller
+
+By default, the ingress controller is disabled. You can, however, instruct the Chart to create an Ingress resource for you with the values you specify.
+
+
+{{ template "chart.valuesSection" . }}

@@ -1,0 +1,96 @@
+# backendStore -- Either a filepath, a database or the default value. At present, postgres is the only database engine supported by the official image. Should you want to connect to any other database, please refer to the README.
+backendStore:
+  # backendStore.filepath -- A local or remote filesystem path (e.g. /mnt/persistent-disk)
+  filepath:
+
+  # backendStore.postgres -- A map with the values for (username, password, host, port and database).
+  postgres:
+  #   username:
+  #   password: 
+  #   host:
+  #   port:
+  #   database:
+
+# defaultArtifactRoot -- A local or remote filepath (e.g. s3://my-bucket). It is mandatory when specifying a database backend store
+defaultArtifactRoot:
+
+# extraArgs -- A map of arguments and values to pass to the `mlflow server` command
+extraArgs: {}
+  # workers: 2
+  # expose-prometheus: yes
+
+replicaCount: 1
+
+image:
+  pullPolicy: IfNotPresent
+
+  # image.repository -- The fully qualified name of the docker image to use
+  repository: larribas/mlflow
+
+  # image.tag -- The tag for the repository (e.g. 'latest')
+  tag:
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # serviceAccount.create -- Specifies whether a service account should be created
+  create: true
+  # serviceAccount.annotations -- Annotations to add to the service account
+  annotations: {}
+  # serviceAccount.name -- The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 5000
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+
+      # ingress.hosts[0].paths -- A list of objects. Each object should contain a `path` key, and may contain a `serviceNameOverride` and a `servicePortOverride` key. If you do not specify any overrides, the Chart will use the ones for the service it creates automatically. We allow overrides to allow advanced behavior like SSL redirection on the AWS ALB Ingress Controller.
+      paths: []
+      # - path: "/*"
+      #   serviceNameOverride: chart-example
+      #   servicePortOverride: 80
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# set true to expose prometheus
+prometheus:
+  expose: false
+
+podAnnotations: {}

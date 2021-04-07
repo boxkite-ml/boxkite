@@ -108,7 +108,7 @@ module "minio" {
       value = "minio"
     },{
       name  = "secretKey"
-      value = "minio-minio"
+      value = "minio123"
     },{
       name  = "generate-name"
       value = "minio/minio"
