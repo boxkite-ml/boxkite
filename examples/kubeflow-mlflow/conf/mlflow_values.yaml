@@ -5,12 +5,19 @@ backendStore:
   filepath:
 
   # backendStore.postgres -- A map with the values for (username, password, host, port and database).
-  postgres:
+  #postgres:
   #   username:
   #   password: 
   #   host:
   #   port:
   #   database:
+
+  mysql:
+     username: mlflow
+     password: mlflow123
+     host: mysql.mlflow.cluster.local
+     port: 3306
+     database: mlflow
 
 # defaultArtifactRoot -- A local or remote filepath (e.g. s3://my-bucket). It is mandatory when specifying a database backend store
 defaultArtifactRoot:
