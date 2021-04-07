@@ -1,21 +1,7 @@
-/*
-
-apiVersion: "kubeflow.org/v1alpha1"
-kind: PodDefault
-metadata:
-  name: add-gcp-secret
-  namespace: kubeflow
-spec:
- selector:
-  matchLabels:
-    add-gcp-secret: "true"
- desc: "add gcp credential"
- volumeMounts:
- - name: secret-volume
-   mountPath: /secret/gcp
- volumes:
- - name: secret-volume
-   secret:
-    secretName: gcp-secret
-
-*/
+resource "k8s_manifest" "mlflow_poddefault" {
+  depends_on = [kubernetes_deployment.kubeflow_operator, k8s_manifest.kubeflow_application_crd]
+  timeouts {
+    delete = "15m"
+  }
+  content = templatefile("${path.module}/poddefaults.yaml", {})
+}
