@@ -1,0 +1,10 @@
+apiVersion: kubeflow.org/v1
+kind: Profile
+metadata:
+  finalizers:
+  - profile-finalizer
+  name: admin
+spec:
+  owner:
+    kind: User
+    name: admin@kubeflow.org
