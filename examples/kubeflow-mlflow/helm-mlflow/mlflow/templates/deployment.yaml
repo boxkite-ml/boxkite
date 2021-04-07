@@ -37,7 +37,7 @@ spec:
           {{- else if .Values.backendStore.postgres }}
             - --backend-store-uri=postgresql://{{ required "you must specify a username for the database" .Values.backendStore.postgres.username }}:$(SECRET_PASSWORD)@{{ required "you must specify a host for the database" .Values.backendStore.postgres.host }}:{{ required "you must specify a port for the database" .Values.backendStore.postgres.port }}/{{ required "you must specify a database name" .Values.backendStore.postgres.database }}
           {{- else if .Values.backendStore.mysql }}
-            - --backend-store-uri=mysql://{{ required "you must specify a username for the database" .Values.backendStore.mysql.username }}:$(SECRET_PASSWORD)@{{ required "you must specify a host for the database" .Values.backendStore.mysql.host }}:{{ required "you must specify a port for the database" .Values.backendStore.mysql.port }}/{{ required "you must specify a database name" .Values.backendStore.mysql.database }}
+            - --backend-store-uri=mysql+pymysql://{{ required "you must specify a username for the database" .Values.backendStore.mysql.username }}:$(SECRET_PASSWORD)@{{ required "you must specify a host for the database" .Values.backendStore.mysql.host }}:{{ required "you must specify a port for the database" .Values.backendStore.mysql.port }}/{{ required "you must specify a database name" .Values.backendStore.mysql.database }}
           {{- end }}
           {{- if .Values.defaultArtifactRoot }}
             - --default-artifact-root={{ .Values.defaultArtifactRoot }}

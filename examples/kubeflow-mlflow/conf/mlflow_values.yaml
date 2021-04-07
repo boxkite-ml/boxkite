@@ -15,7 +15,7 @@ backendStore:
   mysql:
      username: mlflow
      password: mlflow123
-     host: mysql.mlflow.cluster.local
+     host: mysql.mlflow.svc.cluster.local
      port: 3306
      database: mlflow
 
@@ -33,10 +33,10 @@ image:
   pullPolicy: IfNotPresent
 
   # image.repository -- The fully qualified name of the docker image to use
-  repository: larribas/mlflow
+  repository: quay.io/helix-ml/mlflow
 
   # image.tag -- The tag for the repository (e.g. 'latest')
-  tag:
+  tag: 1.13.1
 
 imagePullSecrets: []
 nameOverride: ""
