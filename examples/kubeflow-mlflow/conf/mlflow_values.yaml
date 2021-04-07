@@ -20,7 +20,7 @@ backendStore:
      database: mlflow
 
 # defaultArtifactRoot -- A local or remote filepath (e.g. s3://my-bucket). It is mandatory when specifying a database backend store
-defaultArtifactRoot:
+defaultArtifactRoot: s3://mlflow-artifacts/
 
 # extraArgs -- A map of arguments and values to pass to the `mlflow server` command
 extraArgs: {}

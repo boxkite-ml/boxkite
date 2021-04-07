@@ -239,10 +239,10 @@ defaultBucket:
 ## Create multiple buckets after minio install
 ## Enabling `defaultBucket` will take priority over this list
 ##
-buckets: []
-  # - name: bucket1
-  #   policy: none
-  #   purge: false
+buckets:
+  - name: mlflow-artifacts
+    policy: none
+    purge: false
   # - name: bucket2
   #   policy: none
   #   purge: false
