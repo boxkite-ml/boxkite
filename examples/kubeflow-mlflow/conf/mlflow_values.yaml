@@ -1,4 +1,3 @@
- 
 # backendStore -- Either a filepath, a database or the default value. At present, postgres is the only database engine supported by the official image. Should you want to connect to any other database, please refer to the README.
 backendStore:
   # backendStore.filepath -- A local or remote filesystem path (e.g. /mnt/persistent-disk)
@@ -7,14 +6,14 @@ backendStore:
   # backendStore.postgres -- A map with the values for (username, password, host, port and database).
   #postgres:
   #   username:
-  #   password: 
+  #   password:
   #   host:
   #   port:
   #   database:
 
   mysql:
      username: root
-     password: mysql123 
+     password: mysql123
      host: mysql.mlflow.svc.cluster.local
      port: 3306
      database: mlflow
@@ -36,7 +35,7 @@ image:
   repository: quay.io/helix-ml/mlflow
 
   # image.tag -- The tag for the repository (e.g. 'latest')
-  tag: 1.13.1
+  tag: 1.15.0
 
 imagePullSecrets: []
 nameOverride: ""

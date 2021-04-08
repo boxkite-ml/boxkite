@@ -89,6 +89,7 @@ base:
     - seldonio/seldon-core-operator:1.2.1
     - tensorflow/tensorflow:1.8.0
     - gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0
+    - quay.io/helix-ml/mlflow:1.15.0
   prewarm_script: |-
     # This gets run after each individual VM starts up, so
     # start services you need in your tests here and they'll be
