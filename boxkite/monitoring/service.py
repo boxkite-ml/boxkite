@@ -20,8 +20,7 @@ from .registry import LiveMetricRegistry
 
 
 class ModelMonitoringService:
-    """Entry point for functionalities related to model monitoring in production.
-    """
+    """Entry point for functionalities related to model monitoring in production."""
 
     def __init__(
         self,
@@ -31,13 +30,23 @@ class ModelMonitoringService:
         self._server_id = os.environ.get(BEDROCK_SERVER_ID, "unknown-server")
         self._log_exporter = log_exporter or FluentdExporter()
         self._baseline_collector = baseline_collector or BaselineMetricCollector()
-        self._live_metrics = LiveMetricRegistry(metrics=self._baseline_collector.collect())
-        self._info_collector = InfoMetricCollector(metric=self._baseline_collector.collect())
+        self._live_metrics = LiveMetricRegistry(
+            metrics=self._baseline_collector.collect()
+        )
+        self._info_collector = InfoMetricCollector(
+            metric=self._baseline_collector.collect()
+        )
         self._metric_encoder = MetricEncoder(
-            collectors=[self._baseline_collector, self._live_metrics, self._info_collector]
+            collectors=[
+                self._baseline_collector,
+                self._live_metrics,
+                self._info_collector,
+            ]
         )
 
-    def log_prediction(self, request_body: str, features: List[float], output: float) -> str:
+    def log_prediction(
+        self, request_body: str, features: List[float], output: float
+    ) -> str:
         """
         Stores the prediction context asynchronously in the background.
 

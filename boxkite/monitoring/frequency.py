@@ -33,7 +33,9 @@ class FrequencyMetric:
         raise NotImplementedError
 
     @staticmethod
-    def _get_serving_name_and_documentation_from_baseline(metric: Metric) -> Tuple[str, str]:
+    def _get_serving_name_and_documentation_from_baseline(
+        metric: Metric,
+    ) -> Tuple[str, str]:
         return (
             metric.name.replace("_baseline", ""),
             metric.documentation.replace("Baseline", "Real time"),
@@ -67,7 +69,9 @@ class FrequencyMetric:
         return cls(metric)
 
     @abstractmethod
-    def observe(self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None):
+    def observe(
+        self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None
+    ):
         """Adds a new observation to the frequency table by incrementing the counter of the
         appropriate bin.
 
@@ -80,8 +84,7 @@ class FrequencyMetric:
 
 
 class DiscreteVariable(FrequencyMetric):
-    """Handles discrete variables, including both numeric and non-numeric values.
-    """
+    """Handles discrete variables, including both numeric and non-numeric values."""
 
     BIN_LABEL = "bin"
 
@@ -93,7 +96,11 @@ class DiscreteVariable(FrequencyMetric):
         )
         for sample in metric.samples:
             self.metric.labels(
-                **{DiscreteVariable.BIN_LABEL: sample.labels[DiscreteVariable.BIN_LABEL]}
+                **{
+                    DiscreteVariable.BIN_LABEL: sample.labels[
+                        DiscreteVariable.BIN_LABEL
+                    ]
+                }
             ).inc(0)
 
     @classmethod
@@ -120,7 +127,9 @@ class DiscreteVariable(FrequencyMetric):
             counter.add_metric(labels=[str(k)], value=v)
         return counter
 
-    def observe(self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None):
+    def observe(
+        self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None
+    ):
         if isinstance(value, int):
             value = float(value)
         base = {"bin": str(value)}
@@ -131,8 +140,7 @@ class DiscreteVariable(FrequencyMetric):
 
 
 class ContinuousVariable(FrequencyMetric):
-    """Handles continuous variables, including None, NaN, and Inf.
-    """
+    """Handles continuous variables, including None, NaN, and Inf."""
 
     BIN_LABEL = "le"
 
@@ -177,6 +185,9 @@ class ContinuousVariable(FrequencyMetric):
             # Integer values will be handled like floats by Prometheus
             buckets.append([str(k), accumulator])
 
+        # Prometheus histogram requires at least 2 buckets
+        if len(bin_to_count) - int("+Inf" in bin_to_count) < 1:
+            buckets.insert(0, ["0.0", 0])
         if "+Inf" not in bin_to_count:
             buckets.append(["+Inf", buckets[-1][1]])
 
@@ -188,7 +199,9 @@ class ContinuousVariable(FrequencyMetric):
             or sum(float(k) * v for k, v in bin_to_count.items() if k != "+Inf"),
         )
 
-    def observe(self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None):
+    def observe(
+        self, value: Optional[TBin], labels: Optional[Mapping[str, str]] = None
+    ):
         metric = self.metric.labels(**labels) if labels else self.metric
         if value is None:
             value = "nan"

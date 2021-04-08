@@ -7,8 +7,7 @@ from .type import Collector
 
 
 class InfoMetricCollector(Collector):
-    """Provides metadata about the feature distribution for querying.
-    """
+    """Provides metadata about the feature distribution for querying."""
 
     def __init__(self, metric: Iterable[Metric]):
         """Computes the feature metadata from a list of collected feature histograms.

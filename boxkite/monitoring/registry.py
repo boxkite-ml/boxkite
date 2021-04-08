@@ -9,12 +9,15 @@ from .frequency import FrequencyMetric
 
 
 def is_single_value(value):
-    return isinstance(value, str) or isinstance(value, dict) or not hasattr(value, "__iter__")
+    return (
+        isinstance(value, str)
+        or isinstance(value, dict)
+        or not hasattr(value, "__iter__")
+    )
 
 
 class LiveMetricRegistry:
-    """An immutable collection of live metrics that can be incremented as new observations arrive.
-    """
+    """An immutable collection of live metrics that can be incremented as new observations arrive."""
 
     def __init__(self, metrics: Iterable[Metric]):
         """Constructs live metrics based on the given baseline metrics.
@@ -36,7 +39,9 @@ class LiveMetricRegistry:
                 frequency = FeatureDistribution.SUPPORTED[m.type].load_frequency(m)
                 self._feature_metrics[index] = frequency
             elif InferenceDistribution.is_supported(m):
-                self._inference_metric = InferenceDistribution.SUPPORTED[m.type].load_frequency(m)
+                self._inference_metric = InferenceDistribution.SUPPORTED[
+                    m.type
+                ].load_frequency(m)
 
     def collect(self) -> List[Metric]:
         """Converts live metrics to a static metrics using their current values in the registry.
@@ -44,7 +49,9 @@ class LiveMetricRegistry:
         :return: The list of converted static metrics
         :rtype: List[Metric]
         """
-        metrics = self._inference_metric.metric.collect() if self._inference_metric else []
+        metrics = (
+            self._inference_metric.metric.collect() if self._inference_metric else []
+        )
         for _, v in self._feature_metrics.items():
             metrics += v.metric.collect()
         return metrics

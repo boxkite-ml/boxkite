@@ -3,14 +3,13 @@ from dataclasses import asdict
 
 from fluent.asyncsender import FluentSender
 
-from spanlib.infrastructure.kubernetes.env_var import (
-    BEDROCK_ENDPOINT_ID,
-    BEDROCK_FLUENTD_ADDR,
-    BEDROCK_FLUENTD_PREFIX,
-    POD_NAME,
-)
-
 from .type import LogExporter, PredictionContext
+
+# The constants below are injected as k8s env var when deployed on Bedrock
+BEDROCK_ENDPOINT_ID = "BEDROCK_ENDPOINT_ID"
+BEDROCK_POD_NAME = "BEDROCK_POD_NAME"
+BEDROCK_FLUENTD_ADDR = "BEDROCK_FLUENTD_ADDR"
+BEDROCK_FLUENTD_PREFIX = "BEDROCK_FLUENTD_PREFIX"
 
 
 class FluentdExporter(LogExporter):
@@ -20,7 +19,7 @@ class FluentdExporter(LogExporter):
         Callers may override kwargs to pass additional configurations to the fluentd sender.
         """
         # Environment variables will be injected by model server chart
-        pod_name = os.environ.get(POD_NAME, "unknown-pod")
+        pod_name = os.environ.get(BEDROCK_POD_NAME, "unknown-pod")
         endpoint_id = os.environ.get(BEDROCK_ENDPOINT_ID, "unknown-endpoint")
         fluentd_prefix = os.environ.get(BEDROCK_FLUENTD_PREFIX, "models.predictions")
 
