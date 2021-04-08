@@ -17,11 +17,11 @@ istio-system,istio-reader-service-account
 istio-system,istiod-service-account
 istio-system,kiali-service-account
 istio-system,prometheus
-kf,default
-kf,minio
-kf,minio-update-prometheus-secret
-kf,mlflow
-kf,mysql
+mlflow,default
+mlflow,minio
+mlflow,minio-update-prometheus-secret
+mlflow,mlflow
+mlflow,mysql
 knative-serving,controller
 knative-serving,default
 kube-node-lease,default

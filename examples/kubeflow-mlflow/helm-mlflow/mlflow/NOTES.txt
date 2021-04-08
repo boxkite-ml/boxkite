@@ -1,0 +1,12 @@
+Now you can access MLFlow's UI via your service/ingress address.
+
+You can also point MLFlow tracking to the remote MLFlow server exporting:
+
+export MLFLOW_TRACKING_URI=https://mlflow.example.org
+
+...and running an mlflow experiment.
+
+
+See https://mlflow.org/docs/latest/tracking.html for more information.
+
+

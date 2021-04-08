@@ -89,6 +89,7 @@ base:
     - seldonio/seldon-core-operator:1.2.1
     - tensorflow/tensorflow:1.8.0
     - gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0
+    - quay.io/helix-ml/mlflow:1.15.0
   prewarm_script: |-
     # This gets run after each individual VM starts up, so
     # start services you need in your tests here and they'll be
@@ -111,3 +112,4 @@ max_pool_size: 2
 # the VMs for long running development purposes rather than
 # short-lived CI.
 default_lease_timeout: ""
+pool_sleep_timeout: "never"

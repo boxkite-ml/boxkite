@@ -21,7 +21,7 @@ spec:
   gateways:
   - kubeflow/kubeflow-gateway
   hosts:
-  - kubeflow.${domain_name}
+#  - kubeflow.${domain_name}
   - "*"
   http:
   - match:

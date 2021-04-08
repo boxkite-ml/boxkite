@@ -58,7 +58,7 @@ module "kubeflow" {
 
 module "mlflow" {
   source  = "terraform-module/release/helm"
-  repository = "https://larribas.me/helm-charts"
+  repository = "./helm-mlflow"
   namespace  = kubernetes_namespace.ns.metadata.0.name
 
   app = {
@@ -72,7 +72,7 @@ module "mlflow" {
   }
 
   values = [
-    "${file("conf/mlflow_values.yaml")}"
+    file("conf/mlflow_values.yaml")
   ]
 
   set = [
@@ -99,7 +99,7 @@ module "minio" {
   }
 
   values = [
-    "${file("conf/minio_values.yaml")}"
+    file("conf/minio_values.yaml")
   ]
 
   set = [
@@ -108,7 +108,7 @@ module "minio" {
       value = "minio"
     },{
       name  = "secretKey"
-      value = "minio-minio"
+      value = "minio123"
     },{
       name  = "generate-name"
       value = "minio/minio"
@@ -135,12 +135,22 @@ module "mysql" {
   }
 
   values = [
-    "${file("conf/mysql_values.yaml")}"
+    file("conf/mysql_values.yaml")
   ]
 
 }
 
-resource "kubernetes_service" "mlflow-external" {
+resource "kubernetes_secret" "mysql_password" {
+  metadata {
+    name      = "mlflow-mysql"
+    namespace = kubernetes_namespace.ns.metadata.0.name
+  }
+  data = {
+    password = "mysql123"
+  }
+}
+
+resource "kubernetes_service" "mlflow_external" {
   metadata {
     name      = "mlflow-external"
     namespace = kubernetes_namespace.ns.metadata.0.name
@@ -159,7 +169,7 @@ resource "kubernetes_service" "mlflow-external" {
   }
 }
 
-resource "kubernetes_service" "minio-external" {
+resource "kubernetes_service" "minio_external" {
   metadata {
     name      = "minio-external"
     namespace = kubernetes_namespace.ns.metadata.0.name
@@ -178,7 +188,7 @@ resource "kubernetes_service" "minio-external" {
   }
 }
 
-resource "kubernetes_service" "istio-external" {
+resource "kubernetes_service" "istio_external" {
   metadata {
     name      = "istio-external"
     namespace = "istio-system"

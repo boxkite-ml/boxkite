@@ -1,0 +1,19 @@
+apiVersion: "kubeflow.org/v1alpha1"
+kind: PodDefault
+metadata:
+  name: mlflow
+  namespace: admin
+spec:
+ selector:
+  matchLabels:
+    mlflow: "true"
+ desc: "MLflow"
+ env:
+ - name: MLFLOW_TRACKING_URI
+   value: http://mlflow.mlflow.svc.cluster.local:5000
+ - name: MLFLOW_S3_ENDPOINT_URL
+   value: http://minio.mlflow.svc.cluster.local:9000
+ - name: AWS_ACCESS_KEY_ID
+   value: "minio"
+ - name: AWS_SECRET_ACCESS_KEY
+   value: "minio123"

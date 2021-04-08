@@ -3,10 +3,9 @@ set -xeuo pipefail
 
 testctl get
 export KUBECONFIG=$(pwd)/kubeconfig
-./testctl-rsync.sh main.tf /root
-./testctl-rsync.sh conf /root/
-./testctl-rsync.sh terraform-module-kubeflow /root/
-./testctl-rsync.sh regcreds.sh /root/
+for X in *; do
+    ./testctl-rsync.sh $X /root/
+done
 
 # workaround docker hub ratelimits
 # you get a regcred, you get a regcred!
@@ -14,6 +13,7 @@ export KUBECONFIG=$(pwd)/kubeconfig
 # runs in the background continuously trying to apply namespaces while things
 # start up...
 ./testctl-ssh.sh -- bash regcreds.sh &
+PID=$!; trap "kill $PID" EXIT
 
 ./testctl-ssh.sh -- terraform init
 ./testctl-ssh.sh -- terraform apply -auto-approve

@@ -4,26 +4,15 @@ backendStore:
   filepath:
 
   # backendStore.postgres -- A map with the values for (username, password, host, port and database).
-  #postgres:
+  postgres:
   #   username:
-  #   password:
+  #   password: 
   #   host:
   #   port:
   #   database:
 
-  mysql:
-     username: root
-     password: mysql123
-     host: mysql.mlflow.svc.cluster.local
-     port: 3306
-     database: mlflow
-
-awsAccessKeyId: minio
-awsSecretAccessKey: minio123
-s3EndpointUrl: http://minio.mlflow.svc.cluster.local:9000
-
 # defaultArtifactRoot -- A local or remote filepath (e.g. s3://my-bucket). It is mandatory when specifying a database backend store
-defaultArtifactRoot: s3://mlflow-artifacts/
+defaultArtifactRoot:
 
 # extraArgs -- A map of arguments and values to pass to the `mlflow server` command
 extraArgs: {}
@@ -36,10 +25,10 @@ image:
   pullPolicy: IfNotPresent
 
   # image.repository -- The fully qualified name of the docker image to use
-  repository: quay.io/helix-ml/mlflow
+  repository: larribas/mlflow
 
   # image.tag -- The tag for the repository (e.g. 'latest')
-  tag: 1.15.0
+  tag:
 
 imagePullSecrets: []
 nameOverride: ""
@@ -74,13 +63,13 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: mlflow.local
+    - host: chart-example.local
 
       # ingress.hosts[0].paths -- A list of objects. Each object should contain a `path` key, and may contain a `serviceNameOverride` and a `servicePortOverride` key. If you do not specify any overrides, the Chart will use the ones for the service it creates automatically. We allow overrides to allow advanced behavior like SSL redirection on the AWS ALB Ingress Controller.
-      paths:
-        - path: "/*"
-          serviceNameOverride: mlflow
-          servicePortOverride: 80
+      paths: []
+      # - path: "/*"
+      #   serviceNameOverride: chart-example
+      #   servicePortOverride: 80
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

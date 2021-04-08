@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mlflow.fullname" . }}
+  labels:
+    {{- include "mlflow.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "mlflow.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      labels:
+        {{- include "mlflow.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "mlflow.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --host=0.0.0.0
+            - --port=80
+          {{- if .Values.backendStore.filepath }}
+            - --backend-store-uri={{ .Values.backendStore.filepath }}
+          {{- else if .Values.backendStore.postgres }}
+            - --backend-store-uri=postgresql://{{ required "you must specify a username for the database" .Values.backendStore.postgres.username }}:$(SECRET_PASSWORD)@{{ required "you must specify a host for the database" .Values.backendStore.postgres.host }}:{{ required "you must specify a port for the database" .Values.backendStore.postgres.port }}/{{ required "you must specify a database name" .Values.backendStore.postgres.database }}
+          {{- else if .Values.backendStore.mysql }}
+            - --backend-store-uri=mysql+pymysql://{{ required "you must specify a username for the database" .Values.backendStore.mysql.username }}:$(SECRET_PASSWORD)@{{ required "you must specify a host for the database" .Values.backendStore.mysql.host }}:{{ required "you must specify a port for the database" .Values.backendStore.mysql.port }}/{{ required "you must specify a database name" .Values.backendStore.mysql.database }}
+          {{- end }}
+          {{- if .Values.defaultArtifactRoot }}
+            - --default-artifact-root={{ .Values.defaultArtifactRoot }}
+          {{- end }}
+          {{- if .Values.prometheus.expose }}
+            - --expose-prometheus=yes
+          {{- end }}
+          {{- range $key, $value := .Values.extraArgs }}
+            - --{{ $key }}={{ $value }}
+          {{- end }}
+          env:
+          {{- if .Values.backendStore.postgres }}
+            - name: SECRET_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mlflow.postgresSecretName" . }}
+                  key: password
+          {{- end }}
+          {{- if .Values.backendStore.mysql }}
+            - name: SECRET_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mlflow.mysqlSecretName" . }}
+                  key: password
+          {{- end }}
+            # TODO: make these into secret references, probably.
+            - name: AWS_ACCESS_KEY_ID
+              value: {{ .Values.awsAccessKeyId}}
+            - name: AWS_SECRET_ACCESS_KEY
+              value: {{ .Values.awsSecretAccessKey}}
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: {{ .Values.s3EndpointUrl}}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
