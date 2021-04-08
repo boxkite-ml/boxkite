@@ -1,5 +1,10 @@
 ![Boxkite logo](images/boxkite-text.png){: style="width:300px" }
 
+[![PyPI version fury.io](https://badge.fury.io/py/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
+[![PyPI license](https://img.shields.io/pypi/l/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
+[![codecov](https://codecov.io/gh/basisai/boxkite/branch/master/graph/badge.svg?token=0qgLm01XN3)](https://codecov.io/gh/basisai/boxkite)
+
 ## Easily compare training and production ML data & model distributions
 
 ### User Guide
