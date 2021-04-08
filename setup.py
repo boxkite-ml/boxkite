@@ -23,7 +23,7 @@ setuptools.setup(
     install_requires=[
         "fluent-logger==0.9.6",
         "prometheus_client==0.9",
-        "numpy==1.19.4",
+        "numpy==1.20.2",
         "dataclasses==0.8",
     ],
 )
