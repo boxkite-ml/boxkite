@@ -1,2 +1,0 @@
-ARTEFACT_VOL_MOUNT_PATH = "/artefact"
-APP_VOL_MOUNT_PATH = "/app"
