@@ -45,7 +45,6 @@ class FluentdExporter(LogExporter):
         """
         data = asdict(prediction)
         data["entity_id"] = str(prediction.entity_id)
-        # fluentd's msgpack version does not yet support serializing datetime
-        data["created_at"] = int(prediction.created_at.timestamp())
+        timestamp = int(prediction.created_at.timestamp())
         # TODO: Supports bytes type which is not json serializable
-        self._sender.emit_with_time(label=None, timestamp=data["created_at"], data=data)
+        self._sender.emit_with_time(label=None, timestamp=timestamp, data=data)
