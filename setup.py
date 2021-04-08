@@ -28,6 +28,6 @@ setuptools.setup(
         "fluent-logger==0.9.6",
         "prometheus_client==0.9",
         "numpy==1.19.4",
-        "dataclasses; python_version<'3.7'"
+        "dataclasses; python_version<'3.7'",
     ],
 )
