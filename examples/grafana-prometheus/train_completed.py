@@ -14,7 +14,7 @@ def main():
     model.fit(X_train, Y_train)
 
     Y_pred = model.predict(X_test)
-    print(f"Score: {r2_score(Y_test, Y_pred):.2f}")
+    print("Score: %.2f" % r2_score(Y_test, Y_pred))
     with open("./model.pkl", "wb") as f:
         pickle.dump(model, f)
 
