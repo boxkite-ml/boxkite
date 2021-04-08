@@ -10,7 +10,7 @@ on:
 jobs:
   PR:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    # if: ${{ github.event_name == 'pull_request' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
