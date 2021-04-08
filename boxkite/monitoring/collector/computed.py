@@ -6,8 +6,7 @@ from .type import Collector
 
 
 class ComputedMetricCollector(Collector):
-    """A wrapper for manually computed baseline distribution metrics.
-    """
+    """A wrapper for manually computed baseline distribution metrics."""
 
     def __init__(self, metric: Iterable[Metric]):
         """Wraps user computed metrics in a collector interface for consumption by other systems.
