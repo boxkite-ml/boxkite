@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 1,
-    "iteration": 1607485546982,
+    "iteration": 1617902239714,
     "links": [],
     "panels": [
         {
@@ -49,7 +49,6 @@
             "datasource": null,
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -84,7 +83,7 @@
                 "alertThreshold": true
             },
             "percentage": true,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -174,7 +173,6 @@
             "datasource": null,
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -209,7 +207,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -304,7 +302,6 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -336,7 +333,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -410,7 +407,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 20
+                "y": 10
             },
             "id": 5,
             "panels": [],
@@ -434,7 +431,6 @@
             "datasource": null,
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -445,7 +441,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 0,
-                "y": 21
+                "y": 11
             },
             "hiddenSeries": false,
             "id": 7,
@@ -469,7 +465,7 @@
                 "alertThreshold": true
             },
             "percentage": true,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -559,7 +555,6 @@
             "datasource": null,
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -570,7 +565,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 8,
-                "y": 21
+                "y": 11
             },
             "hiddenSeries": false,
             "id": 3,
@@ -594,7 +589,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -689,7 +684,6 @@
             "description": "",
             "fieldConfig": {
                 "defaults": {
-                    "custom": {},
                     "links": []
                 },
                 "overrides": []
@@ -700,7 +694,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 16,
-                "y": 21
+                "y": 11
             },
             "hiddenSeries": false,
             "id": 58,
@@ -721,7 +715,7 @@
                 "alertThreshold": true
             },
             "percentage": false,
-            "pluginVersion": "7.3.4",
+            "pluginVersion": "7.5.3",
             "pointradius": 2,
             "points": false,
             "renderer": "flot",
@@ -787,15 +781,369 @@
             }
         },
         {
+            "collapsed": false,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 20
+            },
+            "id": 19,
+            "panels": [],
+            "title": "Inference",
+            "type": "row"
+        },
+        {
+            "aliasColors": {},
+            "bars": true,
+            "cacheTimeout": null,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 0,
+                "y": 21
+            },
+            "hiddenSeries": false,
+            "id": 67,
+            "interval": "",
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": true,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": false,
+                "total": false,
+                "values": true
+            },
+            "lines": false,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": true,
+            "pluginVersion": "7.5.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+                {
+                    "alias": "/.*/",
+                    "color": "#73BF69"
+                },
+                {
+                    "alias": "0",
+                    "color": "#FADE2A"
+                },
+                {
+                    "alias": "+Inf",
+                    "color": "#F2495C"
+                }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "sum(inference_value_baseline_bucket) by (le)",
+                    "format": "heatmap",
+                    "instant": true,
+                    "interval": "",
+                    "legendFormat": "{{ le }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Baseline distribution over training set",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "series",
+                "name": null,
+                "show": true,
+                "values": [
+                    "current"
+                ]
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": true,
+            "cacheTimeout": null,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 8,
+                "y": 21
+            },
+            "hiddenSeries": false,
+            "id": 66,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": true,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": false,
+                "sideWidth": null,
+                "total": false,
+                "values": true
+            },
+            "lines": false,
+            "linewidth": 1,
+            "links": [],
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [
+                {
+                    "$$hashKey": "object:1289",
+                    "alias": "/.*/",
+                    "color": "#73BF69"
+                },
+                {
+                    "$$hashKey": "object:1290",
+                    "alias": "0.0",
+                    "color": "#FADE2A"
+                },
+                {
+                    "$$hashKey": "object:1291",
+                    "alias": "+Inf",
+                    "color": "#F2495C"
+                }
+            ],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "sum(increase(inference_value_bucket[$duration])) by (le)",
+                    "format": "heatmap",
+                    "instant": true,
+                    "interval": "",
+                    "legendFormat": "{{ le }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "Inference value distribution over $duration",
+            "tooltip": {
+                "shared": false,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "series",
+                "name": null,
+                "show": true,
+                "values": [
+                    "current"
+                ]
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:1316",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:1317",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "links": []
+                },
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 9,
+                "w": 8,
+                "x": 16,
+                "y": 21
+            },
+            "hiddenSeries": false,
+            "id": 68,
+            "interval": "",
+            "legend": {
+                "avg": false,
+                "current": false,
+                "max": false,
+                "min": false,
+                "show": true,
+                "total": false,
+                "values": false
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "topk(1, abs(\nsum(inference_value_baseline_bucket) by (le) / ignoring(le) group_left max(sum(inference_value_baseline_bucket) by (le)) -\nsum(increase(inference_value_bucket[$duration])) by (le) / ignoring(le) group_left max(sum(increase(inference_value_bucket[$duration])) by (le))\n))",
+                    "hide": false,
+                    "interval": "",
+                    "legendFormat": "{{ le }}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "K-S Test over $duration",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                },
+                {
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": true
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
             "collapsed": true,
             "datasource": null,
             "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 60
+                "y": 30
             },
-            "id": 19,
+            "id": 46,
             "panels": [
                 {
                     "aliasColors": {},
@@ -805,7 +1153,6 @@
                     "datasource": null,
                     "fieldConfig": {
                         "defaults": {
-                            "custom": {},
                             "links": []
                         },
                         "overrides": []
@@ -816,7 +1163,7 @@
                         "h": 9,
                         "w": 6,
                         "x": 0,
-                        "y": 21
+                        "y": 31
                     },
                     "hiddenSeries": false,
                     "id": 31,
@@ -836,7 +1183,7 @@
                         "alertThreshold": true
                     },
                     "percentage": false,
-                    "pluginVersion": "7.3.4",
+                    "pluginVersion": "7.5.3",
                     "pointradius": 2,
                     "points": false,
                     "renderer": "flot",
@@ -905,340 +1252,14 @@
                         "align": false,
                         "alignLevel": null
                     }
-                },
-                {
-                    "aliasColors": {},
-                    "bars": true,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": null,
-                    "fieldConfig": {
-                        "defaults": {
-                            "custom": {},
-                            "links": []
-                        },
-                        "overrides": []
-                    },
-                    "fill": 1,
-                    "fillGradient": 0,
-                    "gridPos": {
-                        "h": 9,
-                        "w": 6,
-                        "x": 6,
-                        "y": 21
-                    },
-                    "hiddenSeries": false,
-                    "id": 34,
-                    "interval": "",
-                    "legend": {
-                        "alignAsTable": true,
-                        "avg": false,
-                        "current": true,
-                        "max": false,
-                        "min": false,
-                        "rightSide": true,
-                        "show": true,
-                        "total": false,
-                        "values": true
-                    },
-                    "lines": false,
-                    "linewidth": 1,
-                    "nullPointMode": "null",
-                    "options": {
-                        "alertThreshold": true
-                    },
-                    "percentage": false,
-                    "pluginVersion": "7.3.4",
-                    "pointradius": 2,
-                    "points": false,
-                    "renderer": "flot",
-                    "seriesOverrides": [
-                        {
-                            "alias": "/.*/",
-                            "color": "#73BF69"
-                        }
-                    ],
-                    "spaceLength": 10,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets": [
-                        {
-                            "expr": "sum(inference_value_baseline_bucket) by (le)",
-                            "format": "heatmap",
-                            "interval": "",
-                            "legendFormat": "{{ le }}",
-                            "refId": "A"
-                        }
-                    ],
-                    "thresholds": [],
-                    "timeFrom": null,
-                    "timeRegions": [],
-                    "timeShift": null,
-                    "title": "Baseline distribution over test set",
-                    "tooltip": {
-                        "shared": false,
-                        "sort": 0,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis": {
-                        "buckets": null,
-                        "mode": "series",
-                        "name": null,
-                        "show": true,
-                        "values": [
-                            "current"
-                        ]
-                    },
-                    "yaxes": [
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        },
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": false
-                        }
-                    ],
-                    "yaxis": {
-                        "align": false,
-                        "alignLevel": null
-                    }
-                },
-                {
-                    "aliasColors": {},
-                    "bars": true,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": null,
-                    "fieldConfig": {
-                        "defaults": {
-                            "custom": {},
-                            "links": []
-                        },
-                        "overrides": []
-                    },
-                    "fill": 1,
-                    "fillGradient": 0,
-                    "gridPos": {
-                        "h": 9,
-                        "w": 6,
-                        "x": 12,
-                        "y": 21
-                    },
-                    "hiddenSeries": false,
-                    "id": 33,
-                    "legend": {
-                        "alignAsTable": true,
-                        "avg": false,
-                        "current": true,
-                        "max": false,
-                        "min": false,
-                        "rightSide": true,
-                        "show": true,
-                        "total": false,
-                        "values": true
-                    },
-                    "lines": false,
-                    "linewidth": 1,
-                    "nullPointMode": "null",
-                    "options": {
-                        "alertThreshold": true
-                    },
-                    "percentage": false,
-                    "pluginVersion": "7.3.4",
-                    "pointradius": 2,
-                    "points": false,
-                    "renderer": "flot",
-                    "seriesOverrides": [
-                        {
-                            "alias": "/.*/",
-                            "color": "#73BF69"
-                        }
-                    ],
-                    "spaceLength": 10,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets": [
-                        {
-                            "expr": "sum(increase(inference_value_bucket[$duration])) by (le)",
-                            "format": "heatmap",
-                            "interval": "",
-                            "legendFormat": "{{ le }}",
-                            "refId": "A"
-                        }
-                    ],
-                    "thresholds": [],
-                    "timeFrom": null,
-                    "timeRegions": [],
-                    "timeShift": null,
-                    "title": "Inference value distribution over $duration",
-                    "tooltip": {
-                        "shared": false,
-                        "sort": 0,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis": {
-                        "buckets": null,
-                        "mode": "series",
-                        "name": null,
-                        "show": true,
-                        "values": [
-                            "current"
-                        ]
-                    },
-                    "yaxes": [
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        },
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": false
-                        }
-                    ],
-                    "yaxis": {
-                        "align": false,
-                        "alignLevel": null
-                    }
-                },
-                {
-                    "aliasColors": {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": null,
-                    "description": "",
-                    "fieldConfig": {
-                        "defaults": {
-                            "custom": {},
-                            "links": []
-                        },
-                        "overrides": []
-                    },
-                    "fill": 1,
-                    "fillGradient": 0,
-                    "gridPos": {
-                        "h": 9,
-                        "w": 6,
-                        "x": 18,
-                        "y": 21
-                    },
-                    "hiddenSeries": false,
-                    "id": 65,
-                    "interval": "",
-                    "legend": {
-                        "avg": false,
-                        "current": false,
-                        "max": false,
-                        "min": false,
-                        "show": true,
-                        "total": false,
-                        "values": false
-                    },
-                    "lines": true,
-                    "linewidth": 1,
-                    "nullPointMode": "null",
-                    "options": {
-                        "alertThreshold": true
-                    },
-                    "percentage": false,
-                    "pluginVersion": "7.3.4",
-                    "pointradius": 2,
-                    "points": false,
-                    "renderer": "flot",
-                    "seriesOverrides": [],
-                    "spaceLength": 10,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets": [
-                        {
-                            "expr": "topk(1, abs(\nsum(inference_value_baseline_bucket) by (le) / ignoring(le) group_left max(sum(inference_value_baseline_bucket) by (le)) -\nsum(increase(inference_value_bucket[$duration])) by (le) / ignoring(le) group_left max(sum(increase(inference_value_bucket[$duration])) by (le))\n))",
-                            "hide": false,
-                            "interval": "",
-                            "legendFormat": "{{ le }}",
-                            "refId": "A"
-                        }
-                    ],
-                    "thresholds": [],
-                    "timeFrom": null,
-                    "timeRegions": [],
-                    "timeShift": null,
-                    "title": "K-S Test over $duration",
-                    "tooltip": {
-                        "shared": true,
-                        "sort": 0,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis": {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values": []
-                    },
-                    "yaxes": [
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        },
-                        {
-                            "format": "short",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": null,
-                            "show": true
-                        }
-                    ],
-                    "yaxis": {
-                        "align": false,
-                        "alignLevel": null
-                    }
                 }
             ],
-            "title": "Inference",
-            "type": "row"
-        },
-        {
-            "collapsed": true,
-            "datasource": null,
-            "gridPos": {
-                "h": 1,
-                "w": 24,
-                "x": 0,
-                "y": 61
-            },
-            "id": 46,
-            "panels": [],
             "title": "Ground truth",
             "type": "row"
         }
     ],
-    "refresh": false,
-    "schemaVersion": 26,
+    "refresh": "30s",
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [],
     "templating": {
@@ -1257,6 +1278,7 @@
                 },
                 "datasource": "Prometheus",
                 "definition": "metrics(feature_([0-9].*)_value_bucket)",
+                "description": null,
                 "error": null,
                 "hide": 0,
                 "includeAll": true,
@@ -1264,7 +1286,10 @@
                 "multi": true,
                 "name": "continuous",
                 "options": [],
-                "query": "metrics(feature_([0-9].*)_value_bucket)",
+                "query": {
+                    "query": "metrics(feature_([0-9].*)_value_bucket)",
+                    "refId": "Prometheus-continuous-Variable-Query"
+                },
                 "refresh": 1,
                 "regex": "/(.*)_bucket/",
                 "skipUrlSync": false,
@@ -1279,7 +1304,6 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
-                    "tags": [],
                     "text": [
                         "feature_1_value"
                     ],
@@ -1289,6 +1313,7 @@
                 },
                 "datasource": "Prometheus",
                 "definition": "metrics(feature_([0-9].*)_value_total)",
+                "description": null,
                 "error": null,
                 "hide": 0,
                 "includeAll": true,
@@ -1296,7 +1321,10 @@
                 "multi": true,
                 "name": "discrete",
                 "options": [],
-                "query": "metrics(feature_([0-9].*)_value_total)",
+                "query": {
+                    "query": "metrics(feature_([0-9].*)_value_total)",
+                    "refId": "Prometheus-discrete-Variable-Query"
+                },
                 "refresh": 1,
                 "regex": "/(.*)_total/",
                 "skipUrlSync": false,
@@ -1312,10 +1340,11 @@
                 "auto_count": 30,
                 "auto_min": "10s",
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": "2m",
                     "value": "2m"
                 },
+                "description": null,
                 "error": null,
                 "hide": 0,
                 "label": null,
@@ -1393,10 +1422,11 @@
                 "auto_count": 1,
                 "auto_min": "1m",
                 "current": {
-                    "selected": true,
+                    "selected": false,
                     "text": "auto",
                     "value": "$__auto_interval_duration"
                 },
+                "description": null,
                 "error": null,
                 "hide": 0,
                 "label": null,
@@ -1422,7 +1452,7 @@
         ]
     },
     "time": {
-        "from": "now-1h",
+        "from": "now-30m",
         "to": "now"
     },
     "timepicker": {
