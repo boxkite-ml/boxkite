@@ -3,8 +3,6 @@ from datetime import datetime, timezone
 from typing import Iterable, List, Mapping, Optional, Tuple
 from uuid import uuid4
 
-from spanlib.infrastructure.kubernetes.env_var import BEDROCK_SERVER_ID
-
 from .collector import (
     BaselineMetricCollector,
     FeatureHistogramCollector,
@@ -17,6 +15,9 @@ from .encoder import MetricEncoder
 from .exporter import FluentdExporter
 from .exporter.type import LogExporter
 from .registry import LiveMetricRegistry
+
+# The constants below are injected as k8s env var when deployed on Bedrock
+BEDROCK_SERVER_ID = "BEDROCK_SERVER_ID"
 
 
 class ModelMonitoringService:

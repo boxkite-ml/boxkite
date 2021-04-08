@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 isort --profile black --diff --check-only boxkite tests
 black --check boxkite tests
