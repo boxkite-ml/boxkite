@@ -3,8 +3,6 @@ from datetime import datetime, timezone
 from typing import Iterable, List, Mapping, Optional, Tuple
 from uuid import uuid4
 
-from spanlib.infrastructure.kubernetes.env_var import BEDROCK_SERVER_ID
-
 from .collector import (
     BaselineMetricCollector,
     FeatureHistogramCollector,
@@ -18,10 +16,12 @@ from .exporter import FluentdExporter
 from .exporter.type import LogExporter
 from .registry import LiveMetricRegistry
 
+# The constants below are injected as k8s env var when deployed on Bedrock
+BEDROCK_SERVER_ID = "BEDROCK_SERVER_ID"
+
 
 class ModelMonitoringService:
-    """Entry point for functionalities related to model monitoring in production.
-    """
+    """Entry point for functionalities related to model monitoring in production."""
 
     def __init__(
         self,
@@ -31,13 +31,23 @@ class ModelMonitoringService:
         self._server_id = os.environ.get(BEDROCK_SERVER_ID, "unknown-server")
         self._log_exporter = log_exporter or FluentdExporter()
         self._baseline_collector = baseline_collector or BaselineMetricCollector()
-        self._live_metrics = LiveMetricRegistry(metrics=self._baseline_collector.collect())
-        self._info_collector = InfoMetricCollector(metric=self._baseline_collector.collect())
+        self._live_metrics = LiveMetricRegistry(
+            metrics=self._baseline_collector.collect()
+        )
+        self._info_collector = InfoMetricCollector(
+            metric=self._baseline_collector.collect()
+        )
         self._metric_encoder = MetricEncoder(
-            collectors=[self._baseline_collector, self._live_metrics, self._info_collector]
+            collectors=[
+                self._baseline_collector,
+                self._live_metrics,
+                self._info_collector,
+            ]
         )
 
-    def log_prediction(self, request_body: str, features: List[float], output: float) -> str:
+    def log_prediction(
+        self, request_body: str, features: List[float], output: float
+    ) -> str:
         """
         Stores the prediction context asynchronously in the background.
 

@@ -3,13 +3,14 @@ from typing import List, Mapping, Optional, Type
 import numpy as np
 from prometheus_client import Metric
 
+from boxkite.utils.histogram import fast_histogram, is_discrete
+
 from ..frequency import ContinuousVariable, DiscreteVariable, FrequencyMetric, TBin
 from .type import Collector
 
 
 class InferenceDistribution:
-    """Defines the parsing rules for inference metric.
-    """
+    """Defines the parsing rules for inference metric."""
 
     BASELINE_NAME_PATTERN = "inference_value_baseline"
     BASELINE_DOC_PATTERN = "Baseline inference values for test set"
@@ -25,7 +26,9 @@ class InferenceDistribution:
 
     @classmethod
     def as_discrete(
-        cls, bin_to_count: Mapping[TBin, int], labels: Optional[Mapping[str, str]] = None
+        cls,
+        bin_to_count: Mapping[TBin, int],
+        labels: Optional[Mapping[str, str]] = None,
     ) -> Metric:
         """Parses the inference metric as a discrete variable, using the given bin to count.
 
@@ -73,7 +76,7 @@ class InferenceHistogramCollector(Collector):
     classification problem.
     """
 
-    def __init__(self, data: List[float], is_discrete: bool = False):
+    def __init__(self, data: List[float], is_discrete: Optional[bool] = None):
         """Builds the collector using the given data and params.
 
         Sampling should be done by the user before building the collector to reduce the computation
@@ -87,7 +90,7 @@ class InferenceHistogramCollector(Collector):
         :type is_discrete: bool, optional
         """
         self.data: List[float] = data
-        self.is_discrete: bool = is_discrete
+        self.is_discrete: Optional[bool] = is_discrete
 
     def collect(self):
         """Scores the input features using the given model and computes frequency metric on the
@@ -98,19 +101,35 @@ class InferenceHistogramCollector(Collector):
         """
         # Assuming data is float: dtype=float will convert None values to np.nan
         val = np.asarray(self.data, dtype=float)
+        size = len(val)
 
-        if self.is_discrete:
-            bins, counts = np.unique(val, return_counts=True)
-            bin_to_count = {str(bins[i]): counts[i] for i in range(len(bins))}
+        # Unique does not work on nan since nan != nan
+        val = val[~np.isnan(val)]
+        size_nan = size - len(val)
+        discrete = is_discrete(val) if self.is_discrete is None else self.is_discrete
+
+        if discrete:
+            bin_to_count = fast_histogram(val, discrete=True)
+            if size_nan > 0:
+                bin_to_count["nan"] = size_nan
             yield InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
             return
 
-        # Assume we are dealing with normalized probability
-        sum_value = np.sum(val)
-        bins = list(np.linspace(start=0, stop=1, num=51))
-        # Take the negative of all values to use "le" as the bin upper bound
-        counts, _ = np.histogram(-val, bins=-np.flip([bins[0]] + bins))
-        counts = np.flip(counts)
-        bin_to_count = {"{:.2f}".format(bins[i]): counts[i] for i in range(len(bins))}
+        # Special case for binary classification
+        if np.min(val) >= 0 and np.max(val) <= 1:
+            bins = list(np.linspace(start=0, stop=1, num=51))
+            # Take the negative of all values to use "le" as the bin upper bound
+            counts, _ = np.histogram(-val, bins=-np.flip([bins[0]] + bins))
+            counts = np.flip(counts)
+            # Round bin size to 2 decimal places
+            bin_to_count = {f"{bins[i]:.2f}": counts[i] for i in range(len(bins))}
+            yield InferenceDistribution.as_continuous(
+                bin_to_count=bin_to_count, sum_value=np.sum(val)
+            )
+            return
 
-        yield InferenceDistribution.as_continuous(bin_to_count=bin_to_count, sum_value=sum_value)
+        # Treat it as single output regression
+        bin_to_count = fast_histogram(val, discrete=False)
+        yield InferenceDistribution.as_continuous(
+            bin_to_count=bin_to_count, sum_value=np.sum(val[~np.isinf(val)])
+        )

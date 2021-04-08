@@ -10,8 +10,7 @@ from .registry import LiveMetricRegistry
 
 
 class MetricEncoder:
-    """Encodes Prometheus metrics from collectors as either a byte string or HTTP response.
-    """
+    """Encodes Prometheus metrics from collectors as either a byte string or HTTP response."""
 
     PROMETHEUS = generate_latest
     OPEN_METRICS = openmetrics.generate_latest
@@ -56,7 +55,9 @@ class MetricEncoder:
         :rtype: bytes
         """
         encoder = encoder or MetricEncoder.PROMETHEUS
-        registry = self._registry.restricted_registry(names) if names else self._registry
+        registry = (
+            self._registry.restricted_registry(names) if names else self._registry
+        )
         return encoder(registry)
 
     def as_http(
