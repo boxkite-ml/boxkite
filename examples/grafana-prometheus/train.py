@@ -7,9 +7,7 @@ from sklearn.model_selection import train_test_split
 
 def main():
     bunch = load_diabetes()
-    X_train, X_test, Y_train, Y_test = train_test_split(
-        bunch.data, bunch.target
-    )
+    X_train, X_test, Y_train, Y_test = train_test_split(bunch.data, bunch.target)
     model = LinearRegression()
     model.fit(X_train, Y_train)
 
