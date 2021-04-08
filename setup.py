@@ -15,17 +15,19 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     # TODO: can we relax these requirements at all?
     install_requires=[
         "fluent-logger==0.9.6",
         "prometheus_client==0.9",
         "numpy==1.19.4",
+        "dataclasses; python_version<'3.7'"
     ],
 )
