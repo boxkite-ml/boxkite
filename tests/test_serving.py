@@ -123,7 +123,7 @@ def test_log_prediction():
             # Validate prediction id
             server_id, timestamp, entity_id = pid.split("/")
             assert server_id == "unknown-server"
-            datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S')
+            datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
             assert str(UUID(entity_id)) == entity_id
 
         body, _ = service.export_http()
