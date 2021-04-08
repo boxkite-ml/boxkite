@@ -18,6 +18,10 @@ backendStore:
      port: 3306
      database: mlflow
 
+awsAccessKeyId: minio
+awsSecretAccessKey: minio123
+s3EndpointUrl: http://minio.mlflow.svc.cluster.local:9000
+
 # defaultArtifactRoot -- A local or remote filepath (e.g. s3://my-bucket). It is mandatory when specifying a database backend store
 defaultArtifactRoot: s3://mlflow-artifacts/
 
