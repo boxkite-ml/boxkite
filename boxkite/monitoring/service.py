@@ -107,7 +107,7 @@ class ModelMonitoringService:
         :type path: Optional[str], optional
         """
         collectors: List[Collector] = [FeatureHistogramCollector(data=features)]
-        if inference:
+        if inference is not None:
             collectors.append(InferenceHistogramCollector(data=inference))
         encoder = MetricEncoder(collectors=collectors)
         path = path or BaselineMetricCollector.DEFAULT_HISTOGRAM_PATH

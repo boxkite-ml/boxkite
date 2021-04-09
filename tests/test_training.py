@@ -9,6 +9,8 @@ SAMPLE_TRAINING_DATA = [
     ("fourth", [0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, float("nan"), float("nan")]),
 ]
 
+SAMPLE_INFERENCE_DATA = ["dog", "unknown", "cat", "cat"]
+
 EXPECTED_HISTOGRAM_FILE = [
     "# HELP feature_0_value_baseline Baseline values for feature: first\n",
     "# TYPE feature_0_value_baseline histogram\n",
@@ -43,12 +45,21 @@ EXPECTED_HISTOGRAM_FILE = [
     'feature_3_value_baseline_total{bin="0.0"} 5.0\n',
     'feature_3_value_baseline_total{bin="1.0"} 3.0\n',
     'feature_3_value_baseline_total{bin="nan"} 2.0\n',
+    "# HELP inference_value_baseline_total Baseline inference values for test set\n",
+    "# TYPE inference_value_baseline_total counter\n",
+    'inference_value_baseline_total{bin="cat"} 2.0\n',
+    'inference_value_baseline_total{bin="dog"} 1.0\n',
+    'inference_value_baseline_total{bin="unknown"} 1.0\n',
 ]
 
 
 def test_export_text():
     with NamedTemporaryFile() as temp:
-        ModelMonitoringService.export_text(SAMPLE_TRAINING_DATA, path=temp.name)
+        ModelMonitoringService.export_text(
+            features=SAMPLE_TRAINING_DATA,
+            inference=SAMPLE_INFERENCE_DATA,
+            path=temp.name,
+        )
         histogram_data = temp.readlines()
 
     for i, line in enumerate(histogram_data):
