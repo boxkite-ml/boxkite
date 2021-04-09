@@ -1,4 +1,5 @@
 from logging import getLogger
+from os.path import exists
 from typing import Optional
 
 from prometheus_client.parser import text_fd_to_metric_families
@@ -21,6 +22,14 @@ class BaselineMetricCollector(Collector):
         :type path: Optional[str], optional
         """
         self.path = path or BaselineMetricCollector.DEFAULT_HISTOGRAM_PATH
+        if not exists(self.path):
+            getLogger().warn(
+                "\nWarning: baseline metrics missing from artefact directory.\n"
+                "Your model server should still work but some model monitoring features will not "
+                "be availabe. Please refer to our tutorial on generating baseline metrics from "
+                "train.py: https://docs.basis-ai.com/getting-started/from-notebook-to-production/"
+                "detect-feature-drift#step-1-collect-training-metrics\n\n"
+            )
 
     def describe(self):
         return self.collect()
@@ -33,13 +42,5 @@ class BaselineMetricCollector(Collector):
                     if not metric.name.endswith("_baseline"):
                         continue
                     yield metric
-        except FileNotFoundError as exc:
-            getLogger().warn(
-                "\nWarning: baseline metrics missing from artefact directory.\n"
-                "Your model server should still work but some model monitoring features will not "
-                "be availabe. Please refer to our tutorial on generating baseline metrics from "
-                "train.py: https://docs.basis-ai.com/getting-started/from-notebook-to-production/"
-                "detect-feature-drift#step-1-collect-training-metrics\n\n",
-                exc_info=exc,
-            )
+        except FileNotFoundError:
             return []
