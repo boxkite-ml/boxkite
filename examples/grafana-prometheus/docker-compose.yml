@@ -1,14 +1,14 @@
 version: "3"
 services:
   graf:
-    image: grafana/grafana:7.3.4
+    image: grafana/grafana:7.5.3
     ports:
       - 3000:3000
     volumes:
       - ./metrics/provisioning:/etc/grafana/provisioning
       - ./metrics/dashboards:/var/lib/grafana/dashboards
   prom:
-    image: prom/prometheus:v2.19.3
+    image: prom/prometheus:v2.26.0
     ports:
       - 9090:9090
     volumes:
