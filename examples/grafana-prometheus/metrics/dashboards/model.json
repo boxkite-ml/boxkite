@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 1,
-    "iteration": 1617902239714,
+    "iteration": 1617945905946,
     "links": [],
     "panels": [
         {
@@ -791,7 +791,7 @@
             },
             "id": 19,
             "panels": [],
-            "title": "Inference",
+            "title": "Regression",
             "type": "row"
         },
         {
@@ -873,7 +873,7 @@
             "timeFrom": null,
             "timeRegions": [],
             "timeShift": null,
-            "title": "Baseline distribution over training set",
+            "title": "Baseline distribution over test set",
             "tooltip": {
                 "shared": false,
                 "sort": 0,
@@ -1143,6 +1143,363 @@
                 "x": 0,
                 "y": 30
             },
+            "id": 70,
+            "panels": [
+                {
+                    "aliasColors": {},
+                    "bars": true,
+                    "cacheTimeout": null,
+                    "dashLength": 10,
+                    "dashes": false,
+                    "datasource": null,
+                    "fieldConfig": {
+                        "defaults": {
+                            "links": []
+                        },
+                        "overrides": []
+                    },
+                    "fill": 1,
+                    "fillGradient": 0,
+                    "gridPos": {
+                        "h": 9,
+                        "w": 8,
+                        "x": 0,
+                        "y": 13
+                    },
+                    "hiddenSeries": false,
+                    "id": 71,
+                    "interval": "",
+                    "legend": {
+                        "alignAsTable": true,
+                        "avg": false,
+                        "current": true,
+                        "max": false,
+                        "min": false,
+                        "rightSide": true,
+                        "show": false,
+                        "total": false,
+                        "values": true
+                    },
+                    "lines": false,
+                    "linewidth": 1,
+                    "links": [],
+                    "nullPointMode": "null",
+                    "options": {
+                        "alertThreshold": true
+                    },
+                    "percentage": true,
+                    "pluginVersion": "7.5.3",
+                    "pointradius": 2,
+                    "points": false,
+                    "renderer": "flot",
+                    "seriesOverrides": [
+                        {
+                            "alias": "/.*/",
+                            "color": "#73BF69"
+                        },
+                        {
+                            "alias": "0",
+                            "color": "#FADE2A"
+                        },
+                        {
+                            "alias": "+Inf",
+                            "color": "#F2495C"
+                        }
+                    ],
+                    "spaceLength": 10,
+                    "stack": false,
+                    "steppedLine": false,
+                    "targets": [
+                        {
+                            "exemplar": true,
+                            "expr": "sum(inference_value_baseline_total) by (bin)",
+                            "format": "time_series",
+                            "instant": true,
+                            "interval": "",
+                            "legendFormat": "{{ bin }}",
+                            "refId": "A"
+                        }
+                    ],
+                    "thresholds": [],
+                    "timeFrom": null,
+                    "timeRegions": [],
+                    "timeShift": null,
+                    "title": "Baseline distribution over test set",
+                    "tooltip": {
+                        "shared": false,
+                        "sort": 0,
+                        "value_type": "individual"
+                    },
+                    "type": "graph",
+                    "xaxis": {
+                        "buckets": null,
+                        "mode": "series",
+                        "name": null,
+                        "show": true,
+                        "values": [
+                            "current"
+                        ]
+                    },
+                    "yaxes": [
+                        {
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": "0",
+                            "show": true
+                        },
+                        {
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": false
+                        }
+                    ],
+                    "yaxis": {
+                        "align": false,
+                        "alignLevel": null
+                    }
+                },
+                {
+                    "aliasColors": {},
+                    "bars": true,
+                    "cacheTimeout": null,
+                    "dashLength": 10,
+                    "dashes": false,
+                    "datasource": null,
+                    "fieldConfig": {
+                        "defaults": {
+                            "links": []
+                        },
+                        "overrides": []
+                    },
+                    "fill": 1,
+                    "fillGradient": 0,
+                    "gridPos": {
+                        "h": 9,
+                        "w": 8,
+                        "x": 8,
+                        "y": 13
+                    },
+                    "hiddenSeries": false,
+                    "id": 72,
+                    "legend": {
+                        "alignAsTable": true,
+                        "avg": false,
+                        "current": true,
+                        "max": false,
+                        "min": false,
+                        "rightSide": true,
+                        "show": false,
+                        "sideWidth": null,
+                        "total": false,
+                        "values": true
+                    },
+                    "lines": false,
+                    "linewidth": 1,
+                    "links": [],
+                    "nullPointMode": "null",
+                    "options": {
+                        "alertThreshold": true
+                    },
+                    "percentage": false,
+                    "pluginVersion": "7.5.3",
+                    "pointradius": 2,
+                    "points": false,
+                    "renderer": "flot",
+                    "seriesOverrides": [
+                        {
+                            "$$hashKey": "object:1289",
+                            "alias": "/.*/",
+                            "color": "#73BF69"
+                        },
+                        {
+                            "$$hashKey": "object:1290",
+                            "alias": "0.0",
+                            "color": "#FADE2A"
+                        },
+                        {
+                            "$$hashKey": "object:1291",
+                            "alias": "+Inf",
+                            "color": "#F2495C"
+                        }
+                    ],
+                    "spaceLength": 10,
+                    "stack": false,
+                    "steppedLine": false,
+                    "targets": [
+                        {
+                            "exemplar": true,
+                            "expr": "sum(increase(inference_value_total[$duration])) by (bin)",
+                            "format": "time_series",
+                            "instant": true,
+                            "interval": "",
+                            "legendFormat": "{{ bin }}",
+                            "refId": "A"
+                        }
+                    ],
+                    "thresholds": [],
+                    "timeFrom": null,
+                    "timeRegions": [],
+                    "timeShift": null,
+                    "title": "Inference value distribution over $duration",
+                    "tooltip": {
+                        "shared": false,
+                        "sort": 0,
+                        "value_type": "individual"
+                    },
+                    "type": "graph",
+                    "xaxis": {
+                        "buckets": null,
+                        "mode": "series",
+                        "name": null,
+                        "show": true,
+                        "values": [
+                            "current"
+                        ]
+                    },
+                    "yaxes": [
+                        {
+                            "$$hashKey": "object:1316",
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": true
+                        },
+                        {
+                            "$$hashKey": "object:1317",
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": false
+                        }
+                    ],
+                    "yaxis": {
+                        "align": false,
+                        "alignLevel": null
+                    }
+                },
+                {
+                    "aliasColors": {},
+                    "bars": false,
+                    "dashLength": 10,
+                    "dashes": false,
+                    "datasource": null,
+                    "description": "",
+                    "fieldConfig": {
+                        "defaults": {
+                            "links": []
+                        },
+                        "overrides": []
+                    },
+                    "fill": 1,
+                    "fillGradient": 0,
+                    "gridPos": {
+                        "h": 9,
+                        "w": 8,
+                        "x": 16,
+                        "y": 13
+                    },
+                    "hiddenSeries": false,
+                    "id": 73,
+                    "interval": "",
+                    "legend": {
+                        "avg": false,
+                        "current": false,
+                        "max": false,
+                        "min": false,
+                        "show": false,
+                        "total": false,
+                        "values": false
+                    },
+                    "lines": true,
+                    "linewidth": 1,
+                    "nullPointMode": "null",
+                    "options": {
+                        "alertThreshold": true
+                    },
+                    "percentage": false,
+                    "pluginVersion": "7.5.3",
+                    "pointradius": 2,
+                    "points": false,
+                    "renderer": "flot",
+                    "seriesOverrides": [],
+                    "spaceLength": 10,
+                    "stack": false,
+                    "steppedLine": false,
+                    "targets": [
+                        {
+                            "exemplar": true,
+                            "expr": "sum(\n(sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin))) * ln(\n((sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin)))) / \n((sum(increase(inference_value_total[$duration])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[$duration])) + count(sum(inference_value_total) by (bin))))\n)) + sum(\n(sum(increase(inference_value_total[$duration])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[$duration])) + count(sum(inference_value_total) by (bin))) * ln(\n((sum(increase(inference_value_total[$duration])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[$duration])) + count(sum(inference_value_total) by (bin)))) /\n((sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin))))\n))",
+                            "hide": false,
+                            "interval": "",
+                            "legendFormat": "",
+                            "refId": "A"
+                        }
+                    ],
+                    "thresholds": [],
+                    "timeFrom": null,
+                    "timeRegions": [],
+                    "timeShift": null,
+                    "title": "KL Divergence over $duration",
+                    "tooltip": {
+                        "shared": true,
+                        "sort": 0,
+                        "value_type": "individual"
+                    },
+                    "type": "graph",
+                    "xaxis": {
+                        "buckets": null,
+                        "mode": "time",
+                        "name": null,
+                        "show": true,
+                        "values": []
+                    },
+                    "yaxes": [
+                        {
+                            "$$hashKey": "object:2538",
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": true
+                        },
+                        {
+                            "$$hashKey": "object:2539",
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": true
+                        }
+                    ],
+                    "yaxis": {
+                        "align": false,
+                        "alignLevel": null
+                    }
+                }
+            ],
+            "title": "Classification",
+            "type": "row"
+        },
+        {
+            "collapsed": true,
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 31
+            },
             "id": 46,
             "panels": [
                 {
@@ -1304,6 +1661,7 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
+                    "tags": [],
                     "text": [
                         "feature_1_value"
                     ],
@@ -1472,5 +1830,5 @@
     "timezone": "",
     "title": "Model Metrics",
     "uid": "5hw91VXZk",
-    "version": 1
+    "version": 2
 }
