@@ -99,11 +99,18 @@ class InferenceHistogramCollector(Collector):
         :yield: The converted Prometheus metric for the inference result
         :rtype: Metric
         """
-        # Assuming data is float: dtype=float will convert None values to np.nan
-        val = np.asarray(self.data, dtype=float)
-        size = len(val)
+        try:
+            # Assuming data is float: dtype=float will convert None values to np.nan
+            val = np.asarray(self.data, dtype=float)
+        except ValueError:
+            # Treats input as a list of string labels
+            bins, counts = np.unique(self.data, return_counts=True)
+            bin_to_count = {str(bins[i]): counts[i] for i in range(len(bins))}
+            yield InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
+            return
 
         # Unique does not work on nan since nan != nan
+        size = len(val)
         val = val[~np.isnan(val)]
         size_nan = size - len(val)
         discrete = is_discrete(val) if self.is_discrete is None else self.is_discrete
