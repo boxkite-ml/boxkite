@@ -3,7 +3,7 @@ from typing import List, Mapping, Optional, Type
 import numpy as np
 from prometheus_client import Metric
 
-from boxkite.utils.histogram import fast_histogram, is_discrete
+from boxkite.utils.histogram import fast_histogram
 
 from ..frequency import ContinuousVariable, DiscreteVariable, FrequencyMetric, TBin
 from .type import Collector
@@ -109,34 +109,15 @@ class InferenceHistogramCollector(Collector):
             yield InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
             return
 
-        # Unique does not work on nan since nan != nan
-        size = len(val)
-        val = val[~np.isnan(val)]
-        size_nan = size - len(val)
-        discrete = is_discrete(val) if self.is_discrete is None else self.is_discrete
+        bin_to_count = fast_histogram(val, discrete=True)
 
-        if discrete:
-            bin_to_count = fast_histogram(val, discrete=True)
-            if size_nan > 0:
-                bin_to_count["nan"] = size_nan
-            yield InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
-            return
-
-        # Special case for binary classification
-        if np.min(val) >= 0 and np.max(val) <= 1:
-            bins = list(np.linspace(start=0, stop=1, num=51))
-            # Take the negative of all values to use "le" as the bin upper bound
-            counts, _ = np.histogram(-val, bins=-np.flip([bins[0]] + bins))
-            counts = np.flip(counts)
-            # Round bin size to 2 decimal places
-            bin_to_count = {f"{bins[i]:.2f}": counts[i] for i in range(len(bins))}
-            yield InferenceDistribution.as_continuous(
+        # Continuous histogram will always contain the +Inf bin
+        if "+Inf" not in bin_to_count:
+            metric = InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
+        else:
+            val = val[~np.isinf(val) & ~np.isnan(val)]
+            metric = InferenceDistribution.as_continuous(
                 bin_to_count=bin_to_count, sum_value=np.sum(val)
             )
-            return
 
-        # Treat it as single output regression
-        bin_to_count = fast_histogram(val, discrete=False)
-        yield InferenceDistribution.as_continuous(
-            bin_to_count=bin_to_count, sum_value=np.sum(val[~np.isinf(val)])
-        )
+        yield metric
