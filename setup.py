@@ -23,11 +23,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.6",
-    # TODO: can we relax these requirements at all?
     install_requires=[
         "fluent-logger==0.10.0",
-        "prometheus_client==0.10.0",
-        "numpy==1.19.4",
+        "prometheus_client==0.10.1",
+        "numpy>=1.16,<2",
         "dataclasses; python_version<'3.7'",
     ],
 )
