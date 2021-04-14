@@ -25,7 +25,7 @@ class MetricEncoder:
         self._registry = CollectorRegistry(auto_describe=True)
 
         # Always use a new registry for collecting mmapped files under multiprocess mode
-        if "prometheus_multiproc_dir" in os.environ:
+        if "PROMETHEUS_MULTIPROC_DIR" in os.environ:
             MultiProcessCollector(self._registry)
             # Do not double register metrics that implement MultiProcessValue
             # See: prometheus_client/values.py#L31
