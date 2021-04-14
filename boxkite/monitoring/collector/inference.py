@@ -109,7 +109,7 @@ class InferenceHistogramCollector(Collector):
             yield InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
             return
 
-        bin_to_count = fast_histogram(val, discrete=True)
+        bin_to_count = fast_histogram(val, discrete=self.is_discrete)
 
         # Continuous histogram will always contain the +Inf bin
         if "+Inf" not in bin_to_count:
