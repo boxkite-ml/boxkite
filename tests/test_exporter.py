@@ -16,5 +16,5 @@ def test_fluent_sender():
     service._log_exporter._sender.close()
 
     item = server.get_received()[0]
-    assert item[1] == item[2][b"created_at"]
+    assert item[1] == item[2]["created_at"]
     server.close()
