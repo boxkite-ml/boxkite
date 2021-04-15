@@ -19,7 +19,7 @@ Boxkite is an instrumentation library designed from ground up for tracking **con
 - **Correct**
     - Aggregates histograms from multiple server replicas (using PromQL)
     - Separate counters for discrete and continuous variables (ie. categorical and numeric features)
-    - Initialises serving histogram bins from training data set (using Freedman-Diaconis rule)
+    - Initialises serving histogram bins from training data set (based on Freedman-Diaconis rule)
     - Handles unseen data, `nan`, `None`, `inf`, and negative values
 - **Simple**
     - One metric for each counter type (no confusion over which metric to choose)
