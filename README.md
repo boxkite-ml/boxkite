@@ -6,7 +6,7 @@
 [![CI workflow](https://github.com/basisai/boxkite/actions/workflows/ci.yml/badge.svg)](https://github.com/basisai/boxkite/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/basisai/boxkite/branch/master/graph/badge.svg?token=0qgLm01XN3)](https://codecov.io/gh/basisai/boxkite)
 
-*{Fast, Simple, Correct} - pick three*
+*{Fast, Correct, Simple} - pick three*
 
 ## Goals
 
@@ -134,7 +134,7 @@ Prometheus has supported outlier detection in time series data since 2015. Once 
 
 2. Does boxkite support adversarial detection?
 
-Adversarial detection concerns with identifying single OOD (Out Of Distribution) samples rather than comparing whole distributions. The algorithmis are also highly model specific. For these reasons, we do not have plans to support them in boxkite at the moment. As an alternative, you may look into Seldon for such capabilities https://github.com/SeldonIO/alibi-detect#adversarial-detection.
+Adversarial detection concerns with identifying single OOD (Out Of Distribution) samples rather than comparing whole distributions. The algorithms are also highly model specific. For these reasons, we do not have plans to support them in boxkite at the moment. As an alternative, you may look into Seldon for such capabilities https://github.com/SeldonIO/alibi-detect#adversarial-detection.
 
 ## Contributors
 
