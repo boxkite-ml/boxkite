@@ -3,7 +3,7 @@ from typing import Iterable, List, Mapping, Optional, Set, Tuple, Type
 import numpy as np
 from prometheus_client import Metric
 
-from boxkite.utils.histogram import fast_histogram
+from boxkite.utils.histogram import _remove_nans_and_infs, fast_histogram
 
 from ..frequency import ContinuousVariable, DiscreteVariable, FrequencyMetric, TBin
 from .type import Collector
@@ -140,7 +140,7 @@ class FeatureHistogramCollector(Collector):
                     index=i, name=name, bin_to_count=bin_to_count
                 )
             else:
-                val = val[~np.isinf(val) & ~np.isnan(val)]
+                val = _remove_nans_and_infs(val)
                 metric = FeatureDistribution.as_continuous(
                     index=i, name=name, bin_to_count=bin_to_count, sum_value=np.sum(val)
                 )

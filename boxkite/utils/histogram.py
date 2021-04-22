@@ -3,6 +3,10 @@ from typing import List, Mapping, Optional
 import numpy as np
 
 
+def _remove_nans_and_infs(val: np.ndarray):
+    return val[~np.isnan(val) & ~np.isinf(val)]
+
+
 def is_discrete(val: List[float], max_samples: int = 1000) -> bool:
     """Litmus test to determine if val is discrete.
 
@@ -52,7 +56,9 @@ def get_bins(val: List[float]) -> List[float]:
 
 
 def fast_histogram(
-    val: List[float], discrete: Optional[bool] = None
+    val: List[float],
+    discrete: Optional[bool] = None,
+    bins: Optional[List[float]] = None,
 ) -> Mapping[str, float]:
     """Counts the occurrences in each histogram bin, where each value is less than
     or equal to the current bin edge.
@@ -62,6 +68,8 @@ def fast_histogram(
     :param discrete: Explicit treat val as discrete or continuous value,
         defaults to None which uses is_discrete heuristic
     :type discrete: Optional[bool], optional
+    :param bins: Array of values used as bins. Valid only for continuous values
+    :type bins: Optional[List[float]]
     :return: Dictionary of histogram bin to count
     :rtype: Mapping[str, float]
     """
@@ -87,7 +95,7 @@ def fast_histogram(
         return {"+Inf": size_inf}
 
     # Take the negative of all values to use "le" as the bin upper bound
-    bins = get_bins(val)
+    bins = bins or get_bins(val)
     counts, _ = np.histogram(-val, bins=-np.flip([bins[0]] + bins))
     counts = np.flip(counts)
     bin_to_count = dict(p for p in zip(map(str, bins), counts))

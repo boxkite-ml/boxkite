@@ -3,7 +3,7 @@ from typing import List, Mapping, Optional, Type
 import numpy as np
 from prometheus_client import Metric
 
-from boxkite.utils.histogram import fast_histogram
+from boxkite.utils.histogram import _remove_nans_and_infs, fast_histogram
 
 from ..frequency import ContinuousVariable, DiscreteVariable, FrequencyMetric, TBin
 from .type import Collector
@@ -115,7 +115,7 @@ class InferenceHistogramCollector(Collector):
         if "+Inf" not in bin_to_count:
             metric = InferenceDistribution.as_discrete(bin_to_count=bin_to_count)
         else:
-            val = val[~np.isinf(val) & ~np.isnan(val)]
+            val = _remove_nans_and_infs(val)
             metric = InferenceDistribution.as_continuous(
                 bin_to_count=bin_to_count, sum_value=np.sum(val)
             )
