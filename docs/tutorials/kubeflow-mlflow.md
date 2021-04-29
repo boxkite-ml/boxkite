@@ -48,7 +48,7 @@ Change the following settings from the defaults:
 
 * **Name:** Name the notebook server anything you like, such as `test`
 * **Image:** Tick the "Custom image" checkbox and enter:
-  <br/>`quay.io/boxkite/tensorflow-1.15.2-notebook-cpu:dee9ff9`
+  <br/>`quay.io/boxkite/tensorflow-1.15.2-notebook-cpu:8e225af`
   <br/>This preinstalls the required [dependencies](https://github.com/boxkite-ml/boxkite/blob/main/examples/kubeflow-mlflow/custom-jupyter/requirements.txt) and makes the demo notebook available.
 * **Workspace Volume:** Tick the "Don't use Persistent Storage for User's home" box. Then click "dismiss" on the warning that pops up. This is so that the demo notebook shows up in your home directory.
 * **Configurations:** Click "Configurations" and then select "MLflow". This will set up the notebook environment so that it can talk to MLflow automatically.
