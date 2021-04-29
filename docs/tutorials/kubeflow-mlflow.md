@@ -27,7 +27,7 @@ At busy times, you may need to wait a few minutes for a test drive environment t
 
 **Note that the environment will shut down automatically 1 hour after you start using it.**
 
-(If you get a black screen on "Booting VM", please be patient - it's loading).
+If you get a black screen on "Booting VM", please be patient - it's loading. Failing that, scroll down to the bottom of this page to see a video of the demo.
 
 ## Start Kubeflow Notebook Server
 
@@ -95,3 +95,33 @@ Note that Grafana here is aggregating the statistics over the _three_ model serv
 
 * You can also use the SSH tab above to poke around the cluster with `kubectl`, etc.
 * You can also view the Terraform used for the tutorial environment and to replicate it yourself: <a href="https://github.com/boxkite-ml/boxkite/tree/master/examples/kubeflow-mlflow" target="_blank">Terraform for MLOps stack</a>.
+
+
+## Demo video
+
+This video shows the above tutorial in action.
+
+<style>
+.video-wrapper {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  border: 1px solid gray;
+}
+.video-wrapper > iframe {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+</style>
+
+<div class="video-wrapper">
+  <iframe width="1280" height="720" src="https://www.youtube.com/embed/zz-0Yn6_eMQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
