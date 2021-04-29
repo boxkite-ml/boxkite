@@ -1,0 +1,8 @@
+*.swp
+*.swa
+*.swo
+kubeconfig
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+id_rsa

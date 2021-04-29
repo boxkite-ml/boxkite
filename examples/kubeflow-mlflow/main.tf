@@ -58,7 +58,7 @@ module "kubeflow" {
 
 module "mlflow" {
   source  = "terraform-module/release/helm"
-  repository = "./helm-mlflow"
+  repository = "./charts"
   namespace  = kubernetes_namespace.ns.metadata.0.name
 
   app = {
@@ -119,6 +119,34 @@ module "minio" {
   ]
 }
 
+module "prometheus-grafana" {
+  source  = "terraform-module/release/helm"
+  repository = "./charts"
+  namespace  = kubernetes_namespace.ns.metadata.0.name
+
+  app = {
+    chart      = "prometheus-grafana"
+    version    = "11.1.5"
+    name       = "prometheus-grafana"
+    force_update  = true
+    wait          = false
+    recreate_pods = false
+    deploy        = 1
+  }
+
+  values = [
+    file("conf/prometheus_grafana_values.yaml")
+  ]
+
+  set = [
+    {
+      name  = "grafana.adminPassword"
+      value = "grafana123"
+    }
+  ]
+}
+
+
 module "mysql" {
   source  = "terraform-module/release/helm"
   repository = "https://charts.bitnami.com/bitnami"
@@ -169,21 +197,21 @@ resource "kubernetes_service" "mlflow_external" {
   }
 }
 
-resource "kubernetes_service" "minio_external" {
+resource "kubernetes_service" "grafana_external" {
   metadata {
-    name      = "minio-external"
+    name      = "grafana-external"
     namespace = kubernetes_namespace.ns.metadata.0.name
   }
   spec {
     selector = {
-      "app" = "minio"
-      "release" = "minio"
+      "app.kubernetes.io/instance" = "prometheus-grafana"
+      "app.kubernetes.io/name" = "grafana"
     }
     type = "NodePort"
     port {
       node_port   = 30650
-      port        = 9000
-      target_port = 9000
+      port        = 80
+      target_port = 3000
     }
   }
 }
