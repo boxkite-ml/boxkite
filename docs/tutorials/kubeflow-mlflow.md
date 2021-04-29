@@ -2,7 +2,7 @@
 
 This tutorial shows you how to use Boxkite in the context of a Kubeflow cluster with MLflow.
 
-## Easy Test Drive
+## Launch the Test Drive
 
 **Note: the test drive doesn't work in Safari yet. Please use Chrome or Firefox for now! Also please note it won't work in Private/Incognito windows.**
 
@@ -23,13 +23,9 @@ function toggle(el) {
 
 <iframe width="1024" height="300" id="testdrive" data-src="https://testfaster.ci/launch?embedded=true&repo=https://github.com/boxkite-ml/boxkite&file=examples/kubeflow-mlflow/.testfaster.yml" style="display:none"></iframe>
 
-## Launch the Test Drive
-
-Click the button above to launch the test drive environment.
-
 At busy times, you may need to wait a few minutes for a test drive environment to become available.
 
-**Note that the environment will shut down automatically 30 minutes after you start using it.**
+**Note that the environment will shut down automatically 1 hour after you start using it.**
 
 (If you get a black screen on "Booting VM", please be patient - it's loading).
 

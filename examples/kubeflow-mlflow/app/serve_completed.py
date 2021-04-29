@@ -31,7 +31,7 @@ else:
     print("Artifacts: {}".format(os.listdir(local_path)))
 
     model_file = f"{local_path}/model/model.pkl"
-    histogram_file = f"{local_path}/histogram.prom"
+    histogram_file = f"{local_path}/histogram.txt"
 
 
 with open(model_file, "rb") as f:
