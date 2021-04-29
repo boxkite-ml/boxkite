@@ -4,6 +4,8 @@ This tutorial shows you how to use Boxkite in the context of a Kubeflow cluster 
 
 ## Easy Test Drive
 
+**Note: the test drive doesn't work in Safari yet. Please use Chrome or Firefox for now!**
+
 Use the following test drive to launch a temporary Kubernetes cluster with the tutorial running in it:
 
 <script>
@@ -19,7 +21,7 @@ function toggle(el) {
 
 <a id="button" class="md-button md-button--primary" href="javascript:void(0);" onclick="document.getElementById('testdrive').src=document.getElementById('testdrive').getAttribute('data-src'); toggle('testdrive'); toggle('button')">Launch Test Drive</a>
 
-<iframe width="1024" height="600" id="testdrive" data-src="https://testfaster.ci/launch?embedded=true&repo=https://github.com/boxkite-ml/docs&file=examples/kubeflow-mlflow/.testfaster.yml" style="display:none"></iframe>
+<iframe width="1024" height="600" id="testdrive" data-src="https://testfaster.ci/launch?embedded=true&repo=https://github.com/boxkite-ml/boxkite&file=examples/kubeflow-mlflow/.testfaster.yml" style="display:none"></iframe>
 
 ## Launch the Test Drive
 
@@ -51,7 +53,7 @@ Change the following settings from the defaults:
 * **Name:** Name the notebook server anything you like, such as `test`
 * **Image:** Tick the "Custom image" checkbox and enter:
   <br/>`quay.io/boxkite/tensorflow-1.15.2-notebook-cpu:bf3bffa`
-  <br/>This preinstalls the required [dependencies](https://github.com/boxkite-ml/docs/blob/main/examples/kubeflow-mlflow/custom-jupyter/requirements.txt) and makes the demo notebook available.
+  <br/>This preinstalls the required [dependencies](https://github.com/boxkite-ml/boxkite/blob/main/examples/kubeflow-mlflow/custom-jupyter/requirements.txt) and makes the demo notebook available.
 * **Workspace Volume:** Tick the "Don't use Persistent Storage for User's home" box. Then click "dismiss" on the warning that pops up. This is so that the demo notebook shows up in your home directory.
 * **Configurations:** Click "Configurations" and then select "MLflow". This will set up the notebook environment so that it can talk to MLflow automatically.
 
