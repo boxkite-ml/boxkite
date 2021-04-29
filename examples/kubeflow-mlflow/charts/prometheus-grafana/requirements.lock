@@ -1,0 +1,9 @@
+dependencies:
+- name: kube-state-metrics
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 2.7.2
+- name: grafana
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 5.0.24
+digest: sha256:cb408fe79c1f7a5d9f2af829190c902e9f4f1944cabda9809cfcdea6331cad75
+generated: "2020-05-11T13:44:43.197901-03:00"

@@ -1,23 +1,20 @@
-name: Myproject
+name: Kubeflow + MLflow + Boxkite
 base:
   kernel_image: quay.io/testfaster/ignite-kernel
   os_dockerfile: |-
     # This dockerfile defines the base disk image for your VMs
     FROM quay.io/testfaster/kube-ubuntu
-    RUN touch /root/hello-world.txt
     RUN apt update
     RUN apt install gnupg2 software-properties-common rsync -y
     RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
     RUN apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     RUN apt install terraform -y
-  docker_bake_script: |-
-    # Do things that cache docker images for faster builds,
-    # like building a prior version of your software.
-    # Docker buildkit cache is preserved!
-    #!/bin/bash
-    set -euo pipefail
-    docker pull busybox:1.32.0
+
   preload_docker_images:
+    # Needed after initial startup
+    - quay.io/boxkite/tensorflow-1.15.2-notebook-cpu:bf3bffa
+    - quay.io/boxkite/boxkite-app:e7a70df
+
     # NB: use:
     #     testctl ssh --tty=false -- docker images --format "{{.Repository}}:{{.Tag}}" |sort |sed 's/^/    - /g'
     # and then remove ':<none>' tags
@@ -27,17 +24,18 @@ base:
     - argoproj/workflow-controller:v2.3.0
     - bitnami/mysql:8.0.23-debian-10-r28
     - busybox:1.32.0
+    - curlimages/curl:7.70.0
     - gcr.io/arrikto/dexidp/dex:4bede5eb80822fc3a7fc9edca0ed2605cd339d17
     - gcr.io/arrikto/kubeflow/oidc-authservice:28c59ef
     - gcr.io/google_containers/spartakus-amd64:v1.1.0
     - gcr.io/k8s-minikube/storage-provisioner:v1.8.1
     - gcr.io/kfserving/kfserving-controller:v0.3.0
-    - gcr.io/knative-releases/knative.dev/serving/cmd/activator
-    - gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa
-    - gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler
-    - gcr.io/knative-releases/knative.dev/serving/cmd/controller
-    - gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio
-    - gcr.io/knative-releases/knative.dev/serving/cmd/webhook
+    - gcr.io/knative-releases/knative.dev/serving/cmd/activator:latest
+    - gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler-hpa:latest
+    - gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler:latest
+    - gcr.io/knative-releases/knative.dev/serving/cmd/controller:latest
+    - gcr.io/knative-releases/knative.dev/serving/cmd/networking/istio:latest
+    - gcr.io/knative-releases/knative.dev/serving/cmd/webhook:latest
     - gcr.io/kubebuilder/kube-rbac-proxy:v0.4.0
     - gcr.io/kubeflow-images-public/admission-webhook:vmaster-gaf96e4e3
     - gcr.io/kubeflow-images-public/centraldashboard:v1.1.0-g35d7484a
@@ -52,6 +50,7 @@ base:
     - gcr.io/kubeflow-images-public/notebook-controller:vmaster-gf39279c0
     - gcr.io/kubeflow-images-public/profile-controller:vmaster-ga49f658f
     - gcr.io/kubeflow-images-public/pytorch-operator:vmaster-gd596e904
+    - gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0
     - gcr.io/kubeflow-images-public/tf_operator:vmaster-ga2ae7bff
     - gcr.io/ml-pipeline/api-server:0.2.5
     - gcr.io/ml-pipeline/envoy:metadata-grpc
@@ -63,10 +62,12 @@ base:
     - gcr.io/spark-operator/spark-operator:v1beta2-1.1.0-2.4.5
     - gcr.io/tfx-oss-public/ml_metadata_store_server:v0.21.1
     - grafana/grafana:6.7.4
+    - grafana/grafana:7.5.3
     - istio/operator:1.6.8
     - istio/pilot:1.6.8
     - istio/proxyv2:1.6.8
     - jaegertracing/all-in-one:1.16
+    - jimmidyson/configmap-reload:v0.5.0
     - k8s.gcr.io/coredns:1.6.5
     - k8s.gcr.io/etcd:3.4.3-0
     - k8s.gcr.io/kube-apiserver:v1.17.11
@@ -75,41 +76,77 @@ base:
     - k8s.gcr.io/kube-scheduler:v1.17.11
     - k8s.gcr.io/pause:3.1
     - larribas/mlflow:1.7.2
+    - minio/mc:RELEASE.2021-02-14T04-28-06Z
     - minio/minio:RELEASE.2018-02-09T22-40-05Z
     - minio/minio:RELEASE.2021-02-14T04-01-33Z
     - mysql:5.6
     - mysql:8
     - mysql:8.0.3
     - nginx:1.19.5
+    - prom/alertmanager:v0.21.0
     - prom/prometheus:v2.15.1
+    - prom/prometheus:v2.26.0
+    - prom/node-exporter:v1.1.2
+    - prom/pushgateway:v1.2.0
+    - quay.io/boxkite/boxkite-app:e7a70df
+    - quay.io/boxkite/tensorflow-1.15.2-notebook-cpu:e7a70df
+    - quay.io/coreos/kube-state-metrics:v1.9.5
+    - quay.io/helix-ml/mlflow:1.15.0
     - quay.io/jetstack/cert-manager-cainjector:v0.16.1
     - quay.io/jetstack/cert-manager-controller:v0.16.1
     - quay.io/jetstack/cert-manager-webhook:v0.16.1
     - quay.io/kiali/kiali:v1.18
     - seldonio/seldon-core-operator:1.2.1
     - tensorflow/tensorflow:1.8.0
-    - gcr.io/kubeflow-images-public/tensorflow-1.15.2-notebook-cpu:1.0.0
-    - quay.io/helix-ml/mlflow:1.15.0
+
   prewarm_script: |-
     # This gets run after each individual VM starts up, so
     # start services you need in your tests here and they'll be
     # already running when you testctl get
     #!/bin/bash
     set -euo pipefail
-    docker run -d nginx:1.19.5
+    git clone https://github.com/boxkite-ml/docs
+    cd docs
+    git checkout 2ce9648bbf45a6c55789b876e43919802a4c5dbb
+    cd examples/kubeflow-mlflow
+    terraform init
+    terraform apply -auto-approve
+
   # Need kube 1.17 for kubeflow last time I checked (1.18 doesn't work).
   # https://github.com/kubeflow/kubeflow/issues/5246#issuecomment-682013220
   kubernetes_version: v1.17.11
 runtime:
-  cpus: 4
-  memory: 12GB
+  cpus: 8
+  memory: 16GB
   disk: 50GB
 # How many ready VMs to keep running for instant testctl get
 prewarm_pool_size: 1
 # Upper bound for pool size, e.g. to keep memory usage sensible
-max_pool_size: 2
+max_pool_size: 16
 # Timeout VMs after this long. Set to "" if you want to use
 # the VMs for long running development purposes rather than
 # short-lived CI.
 default_lease_timeout: ""
 pool_sleep_timeout: "never"
+
+launch:
+  title: Kubeflow + MLflow + Boxkite
+  buttons:
+    - title: Kubeflow
+      port: 31380
+    - title: MLflow
+      port: 30600
+    - title: Grafana
+      port: 30650
+  homepage: |
+    ## Kubeflow + MLflow + Boxkite
+    Click the buttons to the left to launch the Kubeflow, MLflow and Grafana web interfaces. See the tutorial below on how to use these to see Boxkite in action!
+
+    * Log into Kubeflow with username `admin@kubeflow.org` and password `12341234`
+    * Log into Grafana with username `admin` and password `grafana123`
+
+    You can also view the Terraform used for the tutorial environment and to replicate it yourself, <a href="https://github.com/boxkite-ml/boxkite" target="_blank">look here</a>.
+
+    **Note that the environment will shut down automatically 30 minutes after you start using it.**
+
+    _Advanced users:_ You can also use the SSH tab above to poke around the cluster with `kubectl`, etc.

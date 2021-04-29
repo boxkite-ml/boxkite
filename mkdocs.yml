@@ -1,0 +1,29 @@
+site_name: Boxkite
+
+nav:
+  - index.md
+  - installing.md
+  - using.md
+  - Tutorials:
+    - tutorials/grafana-prometheus.md
+    - tutorials/kubeflow-mlflow.md
+  - help.md
+  - get-involved.md
+  - release-notes.md
+  - faqs.md
+
+theme:
+  name: material
+  logo: images/logo-white.png
+  favicon: images/logo-blue.png
+  features:
+    - navigation.expand
+markdown_extensions:
+  - attr_list
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+repo_url: https://github.com/boxkite-ml/boxkite
+repo_name: boxkite-ml/boxkite
+edit_uri: edit/main/docs/
