@@ -126,8 +126,8 @@ max_pool_size: 16
 # Timeout VMs after this long. Set to "" if you want to use
 # the VMs for long running development purposes rather than
 # short-lived CI.
-default_lease_timeout: ""
-pool_sleep_timeout: "never"
+default_lease_timeout: "1h"
+pool_sleep_timeout: "7d"
 
 launch:
   title: Kubeflow + MLflow + Boxkite

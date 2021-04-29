@@ -21,7 +21,7 @@ function toggle(el) {
 
 <a id="button" class="md-button md-button--primary" href="javascript:void(0);" onclick="document.getElementById('testdrive').src=document.getElementById('testdrive').getAttribute('data-src'); toggle('testdrive'); toggle('button')">Launch Test Drive</a>
 
-<iframe width="1024" height="600" id="testdrive" data-src="https://testfaster.ci/launch?embedded=true&repo=https://github.com/boxkite-ml/boxkite&file=examples/kubeflow-mlflow/.testfaster.yml" style="display:none"></iframe>
+<iframe width="1024" height="300" id="testdrive" data-src="https://testfaster.ci/launch?embedded=true&repo=https://github.com/boxkite-ml/boxkite&file=examples/kubeflow-mlflow/.testfaster.yml" style="display:none"></iframe>
 
 ## Launch the Test Drive
 
