@@ -26,4 +26,4 @@ markdown_extensions:
   - admonition
 repo_url: https://github.com/boxkite-ml/boxkite
 repo_name: boxkite-ml/boxkite
-edit_uri: edit/main/docs/
+edit_uri: edit/master/docs/
