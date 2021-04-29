@@ -61,7 +61,7 @@ Some non-goals of this project are:
 
 - Adversarial detection
 
-If you are interested in alternatives, please refer to our discussions in [FAQ](faq.md).
+If you are interested in alternatives, please refer to our discussions in [FAQ](faqs.md).
 
 ## Getting Started
 
