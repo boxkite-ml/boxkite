@@ -33,8 +33,6 @@ At busy times, you may need to wait a few minutes for a test drive environment t
 
 (If you get a black screen on "Booting VM", please be patient - it's loading).
 
-TODO: on black screen, show position in queue.
-
 ## Start Kubeflow Notebook Server
 
 Click the "Kubeflow" button inside the test drive frame, and you should see a "CoreOS" login screen (this is the default Kubeflow "dex" login screen). You may want to arrange this tutorial window side by side with the Kubeflow one so that you can easily follow along.
@@ -61,8 +59,6 @@ Change the following settings from the defaults:
 
 Now click the blue "Launch" button at the bottom of the screen.
 The notebook server may take a few moments to start up.
-
-TODO: insert screenshot "this is what it should look like".
 
 ## Run demo notebook
 
