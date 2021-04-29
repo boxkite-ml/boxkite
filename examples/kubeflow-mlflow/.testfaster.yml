@@ -105,9 +105,9 @@ base:
     # already running when you testctl get
     #!/bin/bash
     set -euo pipefail
-    git clone https://github.com/boxkite-ml/docs
-    cd docs
-    git checkout 2ce9648bbf45a6c55789b876e43919802a4c5dbb
+    git clone https://github.com/boxkite-ml/boxkite
+    cd boxkite
+    git checkout e785e1d27429b140f3bc354a54e1e48f6ce74a2d
     cd examples/kubeflow-mlflow
     terraform init
     terraform apply -auto-approve
