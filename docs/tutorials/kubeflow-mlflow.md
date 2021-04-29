@@ -98,4 +98,4 @@ Note that Grafana here is aggregating the statistics over the _three_ model serv
 ## Notes for advanced users
 
 * You can also use the SSH tab above to poke around the cluster with `kubectl`, etc.
-* You can also view the Terraform used for the tutorial environment and to replicate it yourself, <a href="https://github.com/boxkite-ml/boxkite" target="_blank">look here</a>.
+* You can also view the Terraform used for the tutorial environment and to replicate it yourself: <a href="https://github.com/boxkite-ml/boxkite/tree/master/examples/kubeflow-mlflow" target="_blank">Terraform for MLOps stack</a>.
