@@ -139,14 +139,5 @@ launch:
     - title: Grafana
       port: 30650
   homepage: |
-    ## Kubeflow + MLflow + Boxkite
+    ## Follow the tutorial below
     Click the buttons to the left to launch the Kubeflow, MLflow and Grafana web interfaces. See the tutorial below on how to use these to see Boxkite in action!
-
-    * Log into Kubeflow with username `admin@kubeflow.org` and password `12341234`
-    * Log into Grafana with username `admin` and password `grafana123`
-
-    You can also view the Terraform used for the tutorial environment and to replicate it yourself, <a href="https://github.com/boxkite-ml/boxkite" target="_blank">look here</a>.
-
-    **Note that the environment will shut down automatically 30 minutes after you start using it.**
-
-    _Advanced users:_ You can also use the SSH tab above to poke around the cluster with `kubectl`, etc.

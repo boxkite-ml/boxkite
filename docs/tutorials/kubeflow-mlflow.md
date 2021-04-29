@@ -29,7 +29,9 @@ Click the button above to launch the test drive environment.
 
 At busy times, you may need to wait a few minutes for a test drive environment to become available.
 
-(If you get a black screen on "Booting VM", just be patient).
+**Note that the environment will shut down automatically 30 minutes after you start using it.**
+
+(If you get a black screen on "Booting VM", please be patient - it's loading).
 
 TODO: on black screen, show position in queue.
 
@@ -81,8 +83,23 @@ This is useful so that you can maintain a "model registry" which records which m
 
 Click the "Grafana" button in the test drive interface above.
 
+Log into Grafana with:
+
+<div style="margin-left:2em;">
+<strong>Username:</strong> admin <br />
+<strong>Password:</strong> grafana123
+</div>
+
+Click on the dashboards icon on the left (four boxes), Manage, MLOps, Model Metrics.
+
 Observe that the load test you started in the demo notebook is visible in the Grafana dashboard.
 
 This is useful so that you can monitor how the model data and predictions are drifting from what it was trained on.
 
-TODO: make replicas=3 to demonstrate the HA model server stats aggregation selling point.
+Note that Grafana here is aggregating the statistics over the _three_ model servers you deployed from the notebook, so it is working in HA mode!
+
+
+## Notes for advanced users
+
+* You can also use the SSH tab above to poke around the cluster with `kubectl`, etc.
+* You can also view the Terraform used for the tutorial environment and to replicate it yourself, <a href="https://github.com/boxkite-ml/boxkite" target="_blank">look here</a>.
