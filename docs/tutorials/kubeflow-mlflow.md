@@ -4,7 +4,7 @@ This tutorial shows you how to use Boxkite in the context of a Kubeflow cluster 
 
 ## Easy Test Drive
 
-**Note: the test drive doesn't work in Safari yet. Please use Chrome or Firefox for now!**
+**Note: the test drive doesn't work in Safari yet. Please use Chrome or Firefox for now! Also please note it won't work in Private/Incognito windows.**
 
 Use the following test drive to launch a temporary Kubernetes cluster with the tutorial running in it:
 
