@@ -55,6 +55,8 @@ def predict():
 
 ```
 
+## 3. Expose the metrics
+
 ```python
 @app.route("/metrics", methods=["GET"])
 def metrics():
