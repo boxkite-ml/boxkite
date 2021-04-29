@@ -10,6 +10,10 @@ Boxkite allows easy monitoring of model behavior in production systems by captur
 
 Boxkite also includes PromQL queries to calculate divergence metrics, such as [KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) to give you a measure of _how different_ your production traffic is from your training data. This allows you to capture model and data drift.
 
+## Demo!
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zz-0Yn6_eMQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Getting Started
 
 Follow one of our tutorials to easily get started and see how Boxkite works with other tools:
