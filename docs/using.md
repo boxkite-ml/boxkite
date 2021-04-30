@@ -64,7 +64,7 @@ def metrics():
 
 ```
 
-Simply expose metrics and then use our Grafana dashboard!
+Simply expose metrics and then use our [Grafana dashboard](https://github.com/boxkite-ml/boxkite/blob/master/examples/grafana-prometheus/metrics/dashboards/model.json).
 
 See our tutorials for full worked examples with sample code:
 
