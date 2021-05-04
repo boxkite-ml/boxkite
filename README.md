@@ -39,7 +39,7 @@ If you are interested in alternatives, please refer to our discussions in [FAQ](
 Follow one of our tutorials to easily get started and see how Boxkite works with other tools:
 
 - [Prometheus & Grafana](https://boxkite.ml/en/latest/tutorials/grafana-prometheus) in Docker Compose
-- [Kubeflow & MLflow](https://boxkite.ml/en/latest/tutorials/kubeflow-mlflow) on Kubernetes
+- [Kubeflow & MLflow](https://boxkite.ml/en/latest/tutorials/kubeflow-mlflow) on Kubernetes (online test drive)
 
 See [Installation](https://boxkite.ml/en/latest/installing) & [User Guide](https://boxkite.ml/en/latest/using) for how to use Boxkite in any environment.
 
