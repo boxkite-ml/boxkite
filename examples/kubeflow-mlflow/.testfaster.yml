@@ -119,6 +119,7 @@ runtime:
   cpus: 8
   memory: 16GB
   disk: 50GB
+
 # How many ready VMs to keep running for instant testctl get
 prewarm_pool_size: 2
 # Upper bound for pool size, e.g. to keep memory usage sensible
@@ -128,6 +129,9 @@ max_pool_size: 16
 # short-lived CI.
 default_lease_timeout: "1h"
 pool_sleep_timeout: "7d"
+
+# share this config with the world!
+shared: true
 
 launch:
   title: Kubeflow + MLflow + Boxkite
