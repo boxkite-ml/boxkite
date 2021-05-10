@@ -43,17 +43,20 @@ Besides visualising data distributions, Boxkite also includes PromQL queries to 
 Boxkite is an instrumentation library designed from ground up for tracking **concept drift** in HA (Highly Available) model servers. It integrates well with existing DevOps tools (ie. Grafana, Prometheus, fluentd, kubeflow, etc.), and scales horizontally to multiple replicas with no code or infrastructure change.
 
 **Fast**
+
 - 0.5 seconds to process 1 million data points (training)
 - Sub millisecond p99 latency (serving)
 - Supports sampling for large data sets
 
 **Correct**
+
 - Aggregates histograms from multiple server replicas (using PromQL)
 - Separate counters for discrete and continuous variables (ie. categorical and numeric features)
 - Initialises serving histogram bins from training data set (based on Freedman-Diaconis rule)
 - Handles unseen data, `nan`, `None`, `inf`, and negative values
 
 **Simple**
+
 - One metric for each counter type (no confusion over which metric to choose)
 - Default configuration supports both feature and inference monitoring (easy to setup)
 - Small set of dependencies: prometheus, numpy, and fluentd
