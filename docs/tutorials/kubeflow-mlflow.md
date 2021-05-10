@@ -82,7 +82,9 @@ Log into Grafana with:
 <strong>Password:</strong> grafana123
 </div>
 
-Click on the dashboards icon on the left (four boxes), Manage, MLOps, Model Metrics.
+Click on the dashboards icon on the left (four boxes).
+
+Then click **Manage** -> **MLOps** -> **Model Metrics**.
 
 Observe that the load test you started in the demo notebook is visible in the Grafana dashboard.
 
