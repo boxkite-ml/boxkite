@@ -121,7 +121,7 @@ runtime:
   disk: 50GB
 
 # How many ready VMs to keep running for instant testctl get
-prewarm_pool_size: 2
+prewarm_pool_size: 8
 # Upper bound for pool size, e.g. to keep memory usage sensible
 max_pool_size: 16
 # Timeout VMs after this long. Set to "" if you want to use
