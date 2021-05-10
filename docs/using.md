@@ -11,7 +11,7 @@ You use boxkite by doing three things:
 
 ## 1. When you train the model
 
-Tell boxkite your training time data (features) and predictions on the training set.
+Just `import boxkite` and then add a call to the `ModelMonitoringService.export_text` method. This tells boxkite to export a text file containing the histogram of your model’s statistical distributions of features (the data the model was trained on) and inferences (results of running your model against the training data).
 
 ```python
 bunch = load_diabetes()
@@ -37,9 +37,20 @@ ModelMonitoringService.export_text(
 mlflow.log_artifact("./histogram.txt")
 ```
 
+This way, boxkite takes a snapshot of the shape of the input and output of the model at training time, as well as the model itself. In this example, we’re logging the histogram to mlflow along with the model file itself, so that they can be tracked and versioned there together.
+
 ## 2. When you run the model
 
-Record features & predictions at runtime.
+In your model serving code (assuming your model is running in, say, a flask server), we initialize the `ModelMonitoringService` class with the `histogram_file` we collected at training time:
+
+```python
+monitor = ModelMonitoringService(
+    baseline_collector=BaselineMetricCollector(path=histogram_file)
+)
+```
+
+Then when we’re doing inference, we call the `monitor.log_prediction` method and boxkite will automatically compare our production time distributions to the training time distributions:
+
 
 ```python
 @app.route("/", methods=["POST"])
@@ -57,6 +68,8 @@ def predict():
 
 ## 3. Expose the metrics
 
+Then we expose a Prometheus format `/metrics` endpoint which just calls into the `ModelMonitoringService`'s `export_http` method:
+
 ```python
 @app.route("/metrics", methods=["GET"])
 def metrics():
@@ -64,7 +77,21 @@ def metrics():
 
 ```
 
+Then configure your Prometheus instance to scrape your model server. How you do this depends on your setup, you might need to add `prometheus.io/scrape: "true"` to your pod annotations, or Prometheus might be set up to scrape your model server already.
+
 Simply expose metrics and then use our [Grafana dashboard](https://github.com/boxkite-ml/boxkite/blob/master/examples/grafana-prometheus/metrics/dashboards/model.json).
+
+![boxkite dashboard](images/dashboard.png)
+
+The dashboard gives you:
+
+1. Baseline distribution over training set for a categorical feature
+2. Baseline distribution over training set for a continuous variable
+3. Baseline distribution of predictions for this, a continuous (regression) model
+4. How the same values vary at runtime (in production, across multiple HA model servers)
+5. The KL divergence and K-S Tests for how the variance of these distributions is varying over time!
+
+## Try a tutorial!
 
 See our tutorials for full worked examples with sample code:
 
