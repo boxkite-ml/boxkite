@@ -4,11 +4,12 @@
 
 Boxkite makes it easy to monitor ML models in production and integrate into your existing workflows. It aims to be simple, flexible, and reliable.
 
-Boxkite allows easy monitoring of model behavior in production systems by capturing the model training distributions and comparing them against realtime production distributions via Prometheus and Grafana:
-
+Boxkite simplifies model monitoring by capturing feature and inference distributions used in model training, then comparing them against realtime production distributions via Prometheus and Grafana:
 ![Grafana dashboard](images/model-metrics.png "Grafana Dashboard")
 
-Boxkite also includes PromQL queries to calculate divergence metrics, such as [KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) to give you a measure of _how different_ your production traffic is from your training data. This allows you to capture model and data drift.
+Prometheus and Grafana are the de facto DevOps solution for storing, querying, visualising, and alerting on monitoring data. Boxkite integrates directly with this stack, so as to provide ML model observability as a lightweight extension of existing DevOps tooling.
+
+Besides visualising data distributions, Boxkite also includes PromQL queries to calculate divergence metrics, such as [KL Divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) to give you a measure of _how different_ your production traffic is from your training data. This allows you to measure model and data drift more objectively, as well as set up alerting rules.
 
 ## Demo!
 
