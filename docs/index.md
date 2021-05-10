@@ -5,6 +5,7 @@
 Boxkite makes it easy to monitor ML models in production and integrate into your existing workflows. It aims to be simple, flexible, and reliable.
 
 Boxkite simplifies model monitoring by capturing feature and inference distributions used in model training, then comparing them against realtime production distributions via Prometheus and Grafana:
+
 ![Grafana dashboard](images/model-metrics.png "Grafana Dashboard")
 
 Prometheus and Grafana are the de facto DevOps solution for storing, querying, visualising, and alerting on monitoring data. Boxkite integrates directly with this stack, so as to provide ML model observability as a lightweight extension of existing DevOps tooling.
