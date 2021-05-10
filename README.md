@@ -53,9 +53,9 @@ Prometheus has supported outlier detection in time series data since 2015. Once 
 
 Adversarial detection concerns with identifying single OOD (Out Of Distribution) samples rather than comparing whole distributions. The algorithms are also highly model specific. For these reasons, we do not have plans to support them in boxkite at the moment. As an alternative, you may look into Seldon for such capabilities https://github.com/SeldonIO/alibi-detect#adversarial-detection.
 
-3. Does boxkite support concept drifts for text / NLP models?
+3. Does boxkite support concept drift detection for text / NLP models?
 
-Not yet. This is still an active research area that we are keeping an eye out for.
+Not yet. This is still an actively researched area that we are keeping an eye on.
 
 4. Does boxkite support tensorflow / pytorch?
 
@@ -74,6 +74,6 @@ A full list of contributors, which includes individuals that have contributed en
 
 ## Shameless plug
 
-Boxkite is a project from Basis-AI, who offer an MLOps Platform called Bedrock.
+Boxkite is a project from BasisAI, who offer an MLOps Platform called Bedrock.
 
 [Bedrock](https://basis-ai.com/product) helps data scientists own the end-to-end deployment of machine learning workflows. Boxkite was originally part of the Bedrock client library, but we've spun it out into an open source project so that it's useful for everyone!
