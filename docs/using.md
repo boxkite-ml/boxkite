@@ -1,6 +1,6 @@
 # User Guide
 
-Boxkite is an easy way to track model and data drift for Machine Learning models.
+Boxkite is an easy, fully open source way to track model and data drift for Machine Learning models.
 
 **Data drift:** how did the input data vary from when I trained my model to what it's getting in production?
 
