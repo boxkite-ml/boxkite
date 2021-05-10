@@ -69,7 +69,7 @@ This will demonstrate training a model, recording the model and the training dat
 Click the "MLflow" button in the test drive interface above.
 Observe that the model has been recorded in the MLflow model registry along with the histogram.
 
-This is useful so that you can maintain a "model registry" which records which models you've trained along with their training data in a central location, for improved collaboration and governance in your team.
+This is useful so that you can maintain a "model registry" which records which models you've trained along with their training distributions in a central location, for improved collaboration and governance in your team.
 
 ## Open Grafana
 
