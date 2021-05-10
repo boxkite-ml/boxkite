@@ -20,16 +20,15 @@ theme:
   favicon: images/logo-blue.png
   features:
     - navigation.expand
+  custom_dir: overrides
+
 markdown_extensions:
   - attr_list
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - admonition
+
 repo_url: https://github.com/boxkite-ml/boxkite
 repo_name: boxkite-ml/boxkite
 edit_uri: edit/master/docs/
-
-google_analytics:
-  - G-5L4V3FYXSZ
-  - auto
