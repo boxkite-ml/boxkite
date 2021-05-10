@@ -1,4 +1,4 @@
-# User Guide
+# User Guide: Exposing ML data and model drift with Prometheus and Grafana
 
 Boxkite is an easy, fully open source way to track model and data drift for Machine Learning models.
 
