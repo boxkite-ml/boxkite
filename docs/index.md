@@ -1,6 +1,6 @@
 # Easy Open Source ML Monitoring
 
-![Boxkite logo](images/boxkite-text.png){: style="width:300px" }
+![Boxkite logo](images/boxkite-text.png){: style="width:500px" }
 
 Boxkite makes it easy to monitor ML models in production and integrate into your existing workflows. It aims to be simple, flexible, and reliable.
 
