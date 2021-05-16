@@ -82,7 +82,7 @@ Log into Grafana with:
 <strong>Password:</strong> grafana123
 </div>
 
-Click on the dashboards icon on the left (four boxes).
+Click on the **Dashboards icon** on the left (four boxes).
 
 Then click **Manage** -> **MLOps** -> **Model Metrics**.
 
