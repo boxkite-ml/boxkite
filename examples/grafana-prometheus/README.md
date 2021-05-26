@@ -1,6 +1,6 @@
-# aisg-demo
+# Boxkite + Prometheus + Grafana locally
 
-Monitoring model performance in production systems.
+This tutorial uses docker-compose locally to demonstrate training a model, recording its training data histogram, then deploying it with a simple Flask server and then observing the model's divergence in Grafana & Prometheus.
 
 ## Setup
 
