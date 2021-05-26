@@ -14,7 +14,6 @@ def main():
         [bunch.target_names[y] for y in bunch.target],
         test_size=61,
     )
-    return print(X_test[0])
     model = LogisticRegression()
     model.fit(X_train, Y_train)
 
