@@ -15,9 +15,311 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 1,
-    "iteration": 1617945905946,
+    "iteration": 1622087551315,
     "links": [],
     "panels": [
+        {
+            "datasource": null,
+            "gridPos": {
+                "h": 1,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 75,
+            "title": "Alerts",
+            "type": "row"
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                1
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "KL Divergence (30m) alert",
+                "noDataState": "keep_state",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 5,
+                "w": 12,
+                "x": 0,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 77,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": true,
+                "hideEmpty": true,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "sum(\n(sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin))) * ln(\n((sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin)))) / \n((sum(increase(inference_value_total[30m])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[30m])) + count(sum(inference_value_total) by (bin))))\n)) + sum(\n(sum(increase(inference_value_total[30m])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[30m])) + count(sum(inference_value_total) by (bin))) * ln(\n((sum(increase(inference_value_total[30m])) by (bin) + 1) / ignoring (bin) group_left() (sum(increase(inference_value_total[30m])) + count(sum(inference_value_total) by (bin)))) /\n((sum(inference_value_baseline_total) by (bin) + 1) / ignoring (bin) group_left() (sum(inference_value_baseline_total) + count(sum(inference_value_baseline_total) by (bin))))\n))",
+                    "interval": "",
+                    "legendFormat": "",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": true,
+                    "line": true,
+                    "op": "gt",
+                    "value": 1,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "KL Divergence (30m)",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:379",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:380",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
+        {
+            "alert": {
+                "alertRuleTags": {},
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "A",
+                                "5m",
+                                "now"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "executionErrorState": "alerting",
+                "for": "5m",
+                "frequency": "1m",
+                "handler": 1,
+                "name": "K-S Test (30m) alert",
+                "noDataState": "keep_state",
+                "notifications": []
+            },
+            "aliasColors": {},
+            "bars": false,
+            "dashLength": 10,
+            "dashes": false,
+            "datasource": null,
+            "decimals": null,
+            "description": "",
+            "fieldConfig": {
+                "defaults": {},
+                "overrides": []
+            },
+            "fill": 1,
+            "fillGradient": 0,
+            "gridPos": {
+                "h": 5,
+                "w": 12,
+                "x": 12,
+                "y": 1
+            },
+            "hiddenSeries": false,
+            "id": 78,
+            "legend": {
+                "alignAsTable": true,
+                "avg": false,
+                "current": true,
+                "hideEmpty": true,
+                "hideZero": false,
+                "max": false,
+                "min": false,
+                "rightSide": true,
+                "show": true,
+                "total": false,
+                "values": true
+            },
+            "lines": true,
+            "linewidth": 1,
+            "nullPointMode": "null",
+            "options": {
+                "alertThreshold": true
+            },
+            "percentage": false,
+            "pluginVersion": "7.5.3",
+            "pointradius": 2,
+            "points": false,
+            "renderer": "flot",
+            "seriesOverrides": [],
+            "spaceLength": 10,
+            "stack": false,
+            "steppedLine": false,
+            "targets": [
+                {
+                    "exemplar": true,
+                    "expr": "topk(1, abs(\nsum(inference_value_baseline_bucket) by (le) / ignoring(le) group_left max(sum(inference_value_baseline_bucket) by (le)) -\nsum(increase(inference_value_bucket[30m])) by (le) / ignoring(le) group_left max(sum(increase(inference_value_bucket[30m])) by (le))\n))",
+                    "interval": "",
+                    "legendFormat": "yhat={{le}}",
+                    "refId": "A"
+                }
+            ],
+            "thresholds": [
+                {
+                    "colorMode": "critical",
+                    "fill": true,
+                    "line": true,
+                    "op": "gt",
+                    "value": 0.5,
+                    "visible": true
+                }
+            ],
+            "timeFrom": null,
+            "timeRegions": [],
+            "timeShift": null,
+            "title": "K-S Test (30m)",
+            "tooltip": {
+                "shared": true,
+                "sort": 0,
+                "value_type": "individual"
+            },
+            "type": "graph",
+            "xaxis": {
+                "buckets": null,
+                "mode": "time",
+                "name": null,
+                "show": true,
+                "values": []
+            },
+            "yaxes": [
+                {
+                    "$$hashKey": "object:265",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": "0",
+                    "show": true
+                },
+                {
+                    "$$hashKey": "object:266",
+                    "format": "short",
+                    "label": null,
+                    "logBase": 1,
+                    "max": null,
+                    "min": null,
+                    "show": false
+                }
+            ],
+            "yaxis": {
+                "align": false,
+                "alignLevel": null
+            }
+        },
         {
             "collapsed": false,
             "datasource": null,
@@ -25,7 +327,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 0
+                "y": 6
             },
             "id": 62,
             "panels": [],
@@ -59,7 +361,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 0,
-                "y": 1
+                "y": 7
             },
             "hiddenSeries": false,
             "id": 63,
@@ -183,7 +485,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 8,
-                "y": 1
+                "y": 7
             },
             "hiddenSeries": false,
             "id": 64,
@@ -312,7 +614,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 16,
-                "y": 1
+                "y": 7
             },
             "hiddenSeries": false,
             "id": 60,
@@ -407,7 +709,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 10
+                "y": 16
             },
             "id": 5,
             "panels": [],
@@ -441,7 +743,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 0,
-                "y": 11
+                "y": 17
             },
             "hiddenSeries": false,
             "id": 7,
@@ -565,7 +867,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 8,
-                "y": 11
+                "y": 17
             },
             "hiddenSeries": false,
             "id": 3,
@@ -694,7 +996,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 16,
-                "y": 11
+                "y": 17
             },
             "hiddenSeries": false,
             "id": 58,
@@ -787,7 +1089,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 20
+                "y": 26
             },
             "id": 19,
             "panels": [],
@@ -813,7 +1115,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 0,
-                "y": 21
+                "y": 27
             },
             "hiddenSeries": false,
             "id": 67,
@@ -931,7 +1233,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 8,
-                "y": 21
+                "y": 27
             },
             "hiddenSeries": false,
             "id": 66,
@@ -1054,7 +1356,7 @@
                 "h": 9,
                 "w": 8,
                 "x": 16,
-                "y": 21
+                "y": 27
             },
             "hiddenSeries": false,
             "id": 68,
@@ -1141,7 +1443,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 30
+                "y": 36
             },
             "id": 70,
             "panels": [
@@ -1164,7 +1466,7 @@
                         "h": 9,
                         "w": 8,
                         "x": 0,
-                        "y": 13
+                        "y": 40
                     },
                     "hiddenSeries": false,
                     "id": 71,
@@ -1282,7 +1584,7 @@
                         "h": 9,
                         "w": 8,
                         "x": 8,
-                        "y": 13
+                        "y": 40
                     },
                     "hiddenSeries": false,
                     "id": 72,
@@ -1405,7 +1707,7 @@
                         "h": 9,
                         "w": 8,
                         "x": 16,
-                        "y": 13
+                        "y": 40
                     },
                     "hiddenSeries": false,
                     "id": 73,
@@ -1498,7 +1800,7 @@
                 "h": 1,
                 "w": 24,
                 "x": 0,
-                "y": 31
+                "y": 37
             },
             "id": 46,
             "panels": [
@@ -1625,7 +1927,6 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
-                    "tags": [],
                     "text": [
                         "feature_0_value"
                     ],
@@ -1661,7 +1962,6 @@
                 "allValue": null,
                 "current": {
                     "selected": true,
-                    "tags": [],
                     "text": [
                         "feature_1_value"
                     ],
@@ -1830,5 +2130,5 @@
     "timezone": "",
     "title": "Model Metrics",
     "uid": "5hw91VXZk",
-    "version": 2
+    "version": 1
 }
