@@ -57,7 +57,7 @@ Prometheus is configured to automatically scrape the flask server every 15 secon
 
 ## Alerts
 
-Default alerting rules on inference metrics are evaluated every minute. If their values exceed the predefined threshold for 5 minutes straight, a notification will be sent out to the default notification channel (eg. email, slack, etc.). Please refer to [Grafana Tutorial](https://grafana.com/docs/grafana/latest/alerting/notifications/#add-a-notification-channel) for setting up your preferred channel.
+Default alerting rules on inference metrics are evaluated every minute. If their values exceed the predefined threshold for 5 minutes straight, a notification will be sent out to the default notification channel (eg. slack, telegram, etc.). Please refer to [Grafana Tutorial](https://grafana.com/docs/grafana/latest/alerting/notifications/#add-a-notification-channel) for setting up your preferred channel.
 
 Note that feature distribution alerts have to be setup individually for each feature. This is a [limitation of Grafana](https://github.com/grafana/grafana/issues/6557) due to the lack of support for template variables.
 

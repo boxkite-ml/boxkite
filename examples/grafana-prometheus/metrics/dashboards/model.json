@@ -15,7 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 1,
-    "iteration": 1622087551315,
+    "iteration": 1622090483598,
     "links": [],
     "panels": [
         {
@@ -58,7 +58,7 @@
                         "type": "query"
                     }
                 ],
-                "executionErrorState": "alerting",
+                "executionErrorState": "keep_state",
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
@@ -202,7 +202,7 @@
                         "type": "query"
                     }
                 ],
-                "executionErrorState": "alerting",
+                "executionErrorState": "keep_state",
                 "for": "5m",
                 "frequency": "1m",
                 "handler": 1,
