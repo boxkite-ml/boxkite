@@ -44,7 +44,7 @@ Start the monitoring stack locally using `docker-compose.yml`.
 docker compose up
 ```
 
-Install `requests` library and call `metrics/load.py` to generate some load.
+Generate some load with `metrics/load.py`.
 
 ```bash
 pip install requests
@@ -57,7 +57,7 @@ Prometheus is configured to automatically scrape the flask server every 15 secon
 
 ## Alerts
 
-Default alerting rules on inference metrics are evaluated every minute. If their values exceed the predefined threshold for 5 minutes, a notification will be sent out to the default notification channel. Please refer to [Grafana Tutorial](https://grafana.com/docs/grafana/latest/alerting/notifications/#add-a-notification-channel) for setting up your preferred notification channel.
+Default alerting rules on inference metrics are evaluated every minute. If their values exceed the predefined threshold for 5 minutes straight, a notification will be sent out to the default notification channel (eg. email, slack, etc.). Please refer to [Grafana Tutorial](https://grafana.com/docs/grafana/latest/alerting/notifications/#add-a-notification-channel) for setting up your preferred channel.
 
 ## Classification
 
