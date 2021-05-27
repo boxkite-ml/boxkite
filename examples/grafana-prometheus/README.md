@@ -38,24 +38,28 @@ curl localhost:5000 -H "Content-Type: application/json" \
 
 # PromQL Metrics
 
-:warning: Make sure you have [generated](#train) `histogram.prom` and `model.pkl` in your current directory before continuing.
-
-Start the serving container with Prometheus using `docker-compose`. It automatically scrapes the flask server every 15 seconds for feature distribution metrics.
+Start the monitoring stack locally using `docker-compose.yml`.
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
-Install `requests` library and call `metrics/load.py` to generate some load.
+Generate some load with `metrics/load.py`.
 
 ```bash
 pip install requests
 python metrics/load.py
 ```
 
-Navigate to [http://localhost:3000](http://localhost:3000) for the Grafana GUI, then login with `admin` and `admin`, skip changing the admin password, then navigate to Dashboards -> Manage -> Model Metrics:
+Prometheus is configured to automatically scrape the flask server every 15 seconds for feature distribution metrics. Navigate to [http://localhost:3000](http://localhost:3000) for the Grafana GUI, then login with `admin` and `admin`, skip changing the admin password, then navigate to Dashboards -> Manage -> Model Metrics:
 
 ![Grafana dashboard](assets/regression.png "Grafana Dashboard")
+
+## Alerts
+
+Default alerting rules on inference metrics are evaluated every minute. If their values exceed the predefined threshold for 5 minutes straight, a notification will be sent out to the default notification channel (eg. slack, telegram, etc.). Please refer to [Grafana Tutorial](https://grafana.com/docs/grafana/latest/alerting/notifications/#add-a-notification-channel) for setting up your preferred channel.
+
+Note that feature distribution alerts have to be setup individually for each feature. This is a [limitation of Grafana](https://github.com/grafana/grafana/issues/6557) due to the lack of support for template variables.
 
 ## Classification
 
