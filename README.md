@@ -3,8 +3,8 @@
 [![PyPI version](https://badge.fury.io/py/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
 [![PyPI license](https://img.shields.io/pypi/l/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
-[![CI workflow](https://github.com/basisai/boxkite/actions/workflows/ci.yml/badge.svg)](https://github.com/basisai/boxkite/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/basisai/boxkite/branch/master/graph/badge.svg?token=0qgLm01XN3)](https://codecov.io/gh/basisai/boxkite)
+[![CI workflow](https://github.com/boxkite-ml/boxkite/actions/workflows/ci.yml/badge.svg)](https://github.com/boxkite-ml/boxkite/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/boxkite-ml/boxkite/branch/master/graph/badge.svg?token=0qgLm01XN3)](https://codecov.io/gh/boxkite-ml/boxkite)
 
 *{Fast, Correct, Simple} - pick three*
 
