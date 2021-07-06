@@ -24,8 +24,8 @@ setuptools.setup(
     ],
     python_requires=">=3.6",
     install_requires=[
-        "fluent-logger==0.10.0",
-        "prometheus_client==0.10.1",
+        "fluent-logger>=0.10.0,<0.11",
+        "prometheus_client>=0.10.1,<0.12",
         "numpy>=1.16,<2",
         "dataclasses; python_version<'3.7'",
     ],
