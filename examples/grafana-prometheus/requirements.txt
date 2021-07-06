@@ -1,2 +1,2 @@
 scikit-learn==0.24.2
-boxkite==0.0.4
+boxkite==0.0.5
