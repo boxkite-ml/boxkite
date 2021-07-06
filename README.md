@@ -1,4 +1,4 @@
-![Boxkite logo](docs/images/boxkite-text.png)
+![Boxkite logo](https://github.com/boxkite-ml/boxkite/raw/master/docs/images/boxkite-text.png)
 
 [![PyPI version](https://badge.fury.io/py/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
 [![PyPI license](https://img.shields.io/pypi/l/boxkite.svg)](https://pypi.python.org/pypi/boxkite/)
