@@ -88,7 +88,7 @@ The following people have contributed to the original concept and code
 - [Nguyen Hien Linh](https://github.com/nglinh)
 - [Luke Marsden](https://github.com/lukemarsden)
 
-A full list of contributors, which includes individuals that have contributed entries, can be found [here](https://github.com/basisai/model-monitoring/graphs/contributors).
+A full list of contributors, which includes individuals that have contributed entries, can be found [here](https://github.com/boxkite-ml/boxkite/graphs/contributors).
 
 ## Shameless Plug
 
