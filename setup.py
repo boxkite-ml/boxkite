@@ -11,7 +11,7 @@ setuptools.setup(
     description="A small example package",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/basisai/boxkite",
+    url="https://github.com/boxkite-ml/boxkite",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
