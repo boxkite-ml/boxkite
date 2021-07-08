@@ -107,7 +107,7 @@ base:
     set -euo pipefail
     git clone https://github.com/boxkite-ml/boxkite
     cd boxkite
-    git checkout e785e1d27429b140f3bc354a54e1e48f6ce74a2d
+    git checkout 5ad364777974fb86f2bad038c4a22c246d38d265
     cd examples/kubeflow-mlflow
     terraform init
     terraform apply -auto-approve
