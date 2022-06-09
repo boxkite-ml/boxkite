@@ -154,7 +154,7 @@ module "mysql" {
 
   app = {
     chart      = "mysql"
-    version    = "8.0.0"
+    version    = "8.9.6"
     name       = "mysql"
     force_update  = true
     wait          = false
