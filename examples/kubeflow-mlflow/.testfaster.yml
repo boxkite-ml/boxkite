@@ -104,6 +104,7 @@ base:
     # start services you need in your tests here and they'll be
     # already running when you testctl get
     #!/bin/bash
+    echo bump
     set -euo pipefail
     git clone https://github.com/boxkite-ml/boxkite
     cd boxkite
